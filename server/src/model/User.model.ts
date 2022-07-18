@@ -13,11 +13,11 @@ const userSchema = new Schema({
         max: 255,
         min:6
     },
-    password:{
+    phone: {
         type: String,
         required: true,
         max: 1024,
-        min:6
+        min:4
     },
     date: {
         type: Date,

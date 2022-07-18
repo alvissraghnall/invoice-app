@@ -6,4 +6,23 @@ const InvoiceSchema = new Schema({
     ref: "User"
   },
   
+  items: [{
+    name: {
+      type: String,
+      required: true
+    },
+    rate: {
+      type: String,
+      required: true
+    },
+    hours: {
+      type: Number,
+      required: true
+    }
+  }]
+  
 });
+
+const Invoice = mongoose.model('Invoice', InvoiceSchema);
+
+export default Invoice;
