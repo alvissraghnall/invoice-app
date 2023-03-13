@@ -1,6 +1,4 @@
 <script>
-    import MdKeyboardArrowDown from 'svelte-icons/md/MdKeyboardArrowDown.svelte';
-    import { MdAddCircleOutline } from "svelte-icons/md";
     import { onMount } from "svelte";
 
     let dropdownElement;
@@ -47,7 +45,9 @@
                 <div class="filter">
                     <button on:click={toggleFilterDropDown}> 
                         <span>Filter by:</span>
-                        <span class="dropdownicon"><MdKeyboardArrowDown /></span>
+                        <span class="dropdownicon">
+                            <!-- <MdKeyboardArrowDown /> -->
+                        </span>
                     </button>
                     <div class="hidden" bind:this={dropdownElement}>
                         <div class="in-group">
@@ -68,7 +68,7 @@
                 <div class="new-invoice">
                     <button>
                         <span class="w-8 h-8"> 
-                            <MdAddCircleOutline />
+                            <!-- <MdAddCircleOutline /> -->
                         </span>
                         <span> new invoice </span>
                     </button>

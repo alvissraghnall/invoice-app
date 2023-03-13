@@ -5,9 +5,6 @@
 
 <script>
     import InvoiceMain from "../components/InvoiceMain.svelte";
-    // import { Arrow } from "svelte-icons/fa"
-    import FaArrowDown from 'svelte-icons/fa/FaArrowDown.svelte';
-    import MdKeyboardArrowDown from 'svelte-icons/md/MdKeyboardArrowDown.svelte';
     let invoiceNumber = 6;
 
     const toggleFilterMenu = ev => {

@@ -1,58 +1,40 @@
 <script>
-  import { Router, Route } from "svelte-routing";
-  import NavLink from "./components/NavLink.svelte";
-  import Home from "./routes/Home.svelte";
-  import About from "./routes/About.svelte";
-  import Blog from "./routes/Blog.svelte";
-  import AddClient from "./routes/AddClient.svelte";
   import Header from "./components/Nav.svelte";
+  import {
+    Router
+  } from "svelte-router-spa";
+  import { routes } from "./routes/router";
+    import { onMount } from "svelte";
+  let mobile = null;
+  const checkScreen = () => {
+    const windowWidth = window.innerWidth;
+    if (windowWidth <= 700) {
+      mobile = true; return;
+    } mobile = false;
+    console.log(mobile);
+  }
 
-  // Used for SSR. A falsy value is ignored by the Router.
-  export let url = "";
-  import "./index.css" 
+  onMount(() => {
+    checkScreen();
+  })
 </script>
 
-<Router url={url}>
-  <!-- <nav>
-    <NavLink to="/">Home</NavLink>
-    <NavLink to="about">About</NavLink>
-    <NavLink to="blog">Blog</NavLink>
-  </nav> -->
-  <div class="">
-    <div class="whole">
+<svelte:window on:resize={checkScreen}></svelte:window>
 
+<div class="">
+  {#if !mobile}
+    <div class="bg-[#141625] min-h-screen flex-col lg:flex-row flex">
       <Header />
-      <div class="spread">
-        <Route path="about" component="{About}" />
-        <Route path="blog/*" component="{Blog}" />
-        <Route path="/" component="{Home}" />
-        <Route path="client/add" component={AddClient} />
-
-      </div>
+      <div class="py-0 px-5 flex-1 relative flex flex-col">
+        <Router {routes} />
+      </div> 
     </div>
-  </div>
-  <!-- <div>
-      </div> -->
-</Router>
-
-<style>
-
-  .whole {
-    background-color: #141625;
-    min-height: 100vh;
-    flex-direction: column;
-  }
-
-  .spread {
-    display: flex;
-    flex-direction: column;
-    padding: 0 20px;
-    position: relative;
-  }
-
-  @media screen and (min-width: 992px) {
-    .whole {
-      flex-direction: row !important;
-    }
-  }
-</style>
+  {:else}
+    <div class="text-center place-content-center h-screen bg-[] flex flex-col">
+      <h2> Sorry, this app is not supported on mobile devices. </h2>
+      <p> To use this app, please use a tablet, or laptop. </p>
+    </div>
+  {/if}
+     
+    
+</div>

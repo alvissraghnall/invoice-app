@@ -1,10 +1,8 @@
-<header class="flex z-50 flex-row bg-[#1e2139] lg:min-h-full lg:min-w-[5.62rem] lg:flex-col lg:rounded-t">
-    <div>
-        <img src="assets/logo.svg" alt="">
+<header class="flex z-50 flex-row bg-[#353b68] lg:min-h-full lg:min-w-[5.62rem] lg:flex-col rounded-tbr-lg">
+    <div class="flex rounded-tbr bg-violet-700 justify-center p-6 lg:w-full cursor-pointer">
+        <img src="assets/logo.svg" alt="" class="w-auto h-7">
     </div>
 </header>
 
 <script>
-import { FaMoon, FaSun } from "svelte-icons/fa";
-
 </script>

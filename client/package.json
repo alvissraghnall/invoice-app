@@ -12,7 +12,6 @@
     "svelte": "^3.31.1",
     "svelte-icons": "^2.1.0",
     "svelte-router-spa": "^6.0.3",
-    "svelte-routing": "^1.6.0",
     "uuid": "^9.0.0"
   },
   "scripts": {

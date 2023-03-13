@@ -13,3 +13,11 @@
   /* background-color: #141625; */
 }
 
+.rounded-tbr-lg {
+  @apply lg:rounded-br-[1.25rem] lg:rounded-tr-[1.25rem] lg:rounded-tl-none lg:rounded-bl-none;
+}
+
+.rounded-tbr {
+  @apply rounded-br-[1.25rem] rounded-tr-[1.25rem] rounded-tl-none rounded-bl-none;
+}
+
