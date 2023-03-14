@@ -3,10 +3,14 @@ module.exports = {
   content: ["./src/main.js", "./src/**/*.svelte"],
   theme: {
     extend: {
-      
-    },
-    colors: {
-      holderColor: "#141625"
+      colors: {
+        holderColor: "#141625",
+        regColor: "#1e2139"
+      },
+      fontFamily: {
+        sans: ["Graphik", "sans-serif"],
+        'poppins': ['Poppins'],
+      }
     },
     screens: {
       sm: '480px',
@@ -14,7 +18,7 @@ module.exports = {
       lg: '960px',
       xl: '1200px',
       xxl: '1560px'
-    }
+    },
   },
   plugins: [],
   darkMode: "class",

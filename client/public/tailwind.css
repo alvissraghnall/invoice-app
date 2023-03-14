@@ -1,6 +1,4 @@
 
-@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap");
-
 @tailwind base;
 @tailwind utilities;
 @tailwind components;
@@ -20,4 +18,6 @@
 .rounded-tbr {
   @apply rounded-br-[1.25rem] rounded-tr-[1.25rem] rounded-tl-none rounded-bl-none;
 }
+
+
 
