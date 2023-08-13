@@ -1,5 +1,5 @@
 <script>
-    import { Input, Select } from "./shared";
+    import { Button, Input, Select } from "./shared";
     import { Icon, Trash, Plus } from "svelte-hero-icons";
     const submitForm = (ev) => {
         console.log(fields);
@@ -10,6 +10,8 @@
     const closeInvoice = (ev) => {};
 
     const createInvoice = (ev) => {};
+
+    const saveDraft = (ev) => {};
 
     const addNewInvoiceItem = (ev) => {};
     $: itemsList = [];
@@ -37,7 +39,7 @@
 </script>
 
 <div
-    class="invoice-wrap fixed top-0 left-0 bg-transparent w-full h-screen overflow-scroll lg:left-[5.62rem] flex flex-col"
+    class="invoice-wrap fixed top-0 left-0 bg-transparent h-screen overflow-scroll [&::-webkit-scrollbar]:hidden [-ms-overflow-style:'none'] [scrollbar-width:'none'] lg:left-[5.62rem] flex flex-col"
 >
     <form
         class="relative p-14 max-w-[44rem] w-full bg-holderColor text-white shadow-xl"
@@ -221,11 +223,11 @@
             <div class="items-list">
                 <h3 class="text-[#777f98] text-base mb-4">Item List</h3>
                 <table class="it-list w-full">
-                    <tr class="t_heading gap-4 text-xs">
-                        <th class="basis-2/4">Item Name</th>
-                        <th class="basis-1/12">Qty.</th>
-                        <th class="basis-1/5">Price</th>
-                        <th class="basis-1/5 self-center">Total</th>
+                    <tr class="t_heading mb-4 gap-4 text-xs">
+                        <th class="text-left basis-2/4">Item Name</th>
+                        <th class="text-left basis-1/12">Qty.</th>
+                        <th class="text-left basis-1/5">Price</th>
+                        <th class="text-left basis-1/5 self-center">Total</th>
                     </tr>
                     {#each itemsList as item, index (item.id)}
                     <tr class="tb-items relative mb-6 gap-4 text-xs flex">
@@ -261,37 +263,44 @@
                     {/each}
                 </table>
 
-                <button
+                <Button
                     type="submit"
-                    class="flex button"
+                    class="flex button text-white/85 bg-butCol items-center justify-center w-full !py-3 mt-5"
                     on:click={addNewInvoiceItem}
                 >
-                    <span class="w-5 h-5">
+                    <span class="w-5 h-5 mr-2.5">
                         <Icon src={Plus} />
                     </span>
-                    Add New Invoice
-                </button>
+                    Add New Item
+                </Button>
             </div>
         </div>
 
-        <div class="save flex">
-            <div class="">
-                <button
+        <div class="save flex mt-12">
+            <div class="flex-1">
+                <Button
                     type="button"
                     class="capitalize bg-red-600"
                     on:click={closeInvoice}
                 >
                     cancel
-                </button>
+                </Button>
             </div>
-            <div class="flex">
-                <button
+            <div class="flex justify-end flex-1 space-x-2">
+                <Button
+                    type="button"
+                    class="bg-butCol capitalize"
+                    on:click={saveDraft}
+                >
+                    save draft
+                </Button>
+                <Button
                     type="button"
                     class="bg-purple-900 capitalize"
                     on:click={createInvoice}
                 >
-                    save draft
-                </button>
+                    Create Invoice
+                </Button>
             </div>
         </div>
     </form>

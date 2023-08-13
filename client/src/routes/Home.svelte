@@ -19,7 +19,7 @@
                     </ul>
                 {/if}
             </button>
-            <button type="button" class="cursor-pointer py-2 px-2.5 bg-violet-600 rounded-[2rem] text-xs mr-2 text-white outline-none flex items-center" on:click={newInvoice}>
+            <button class="cursor-pointer py-2 px-2.5 bg-violet-600 rounded-[2rem] text-xs mr-2 text-white outline-none flex items-center" on:click={toggleInvoiceModal}>
                 <div class="mr-1 place-content-center w-5 h-5 flex text-violet-600">
                     <Icon src={PlusCircle} class="bg-white rounded-full" />
                 </div>
@@ -31,11 +31,16 @@
 
 
 <script>
+    import { invoiceModalOpen } from "../store";
     import {Icon, ArrowDown, PlusCircle} from "svelte-hero-icons";
     let invoiceNumber = 6;
     let filterMenu = false;
-    const newInvoice = ev => {
+    // const newInvoice = ev => {
         
+    // }
+
+    const toggleInvoiceModal = () => {
+        invoiceModalOpen.update(value => !value);
     }
 
     const toggleFilterMenu = () => filterMenu = !filterMenu;

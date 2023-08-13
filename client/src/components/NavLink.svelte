@@ -1,4 +1,5 @@
 <script>
+    import { invoiceModalOpen } from "../store";
     import { onMount } from "svelte";
 
     let dropdownElement;
@@ -12,6 +13,10 @@
             dropdownElement.classList.remove("show");
             dropdownElement.classList.add("hidden");
         }
+    }
+    
+    const showInvoiceModal = () => {
+        invoiceModalOpen.update(() => !$invoiceModalOpen);
     }
 
     // onMount(() => {
@@ -66,7 +71,7 @@
                 </div>
 
                 <div class="new-invoice">
-                    <button>
+                    <button on:click={showInvoiceModal}>
                         <span class="w-8 h-8"> 
                             <!-- <MdAddCircleOutline /> -->
                         </span>

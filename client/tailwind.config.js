@@ -1,5 +1,7 @@
 const defaultTheme = require("tailwindcss/defaultTheme");
 
+const production = !process.env.ROLLUP_WATCH;
+
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   content: ["./src/main.js", "./src/**/*.svelte"],
@@ -7,7 +9,9 @@ module.exports = {
     extend: {
       colors: {
         holderColor: "#141625",
-        regColor: "#1e2139"
+        regColor: "#1e2139",
+        butCol: "#252945",
+        orange: "#ff8f01"
       },
       fontFamily: {
         sans: ["Graphik", "sans-serif"],
