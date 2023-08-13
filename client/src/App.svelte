@@ -22,7 +22,7 @@
 
 <svelte:window on:resize={checkScreen}></svelte:window>
 
-<div class="">
+<div class="font-poppins">
   {#if !mobile}
     <div class="bg-[#141625] min-h-screen flex-col lg:flex-row flex">
       <Header />

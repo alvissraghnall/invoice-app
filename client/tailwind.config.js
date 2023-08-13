@@ -1,3 +1,5 @@
+const defaultTheme = require("tailwindcss/defaultTheme");
+
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   content: ["./src/main.js", "./src/**/*.svelte"],
@@ -9,7 +11,7 @@ module.exports = {
       },
       fontFamily: {
         sans: ["Graphik", "sans-serif"],
-        'poppins': ['Poppins'],
+        'poppins': ['Poppins', ...defaultTheme.fontFamily.sans ],
       }
     },
     screens: {

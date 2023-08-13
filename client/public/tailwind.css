@@ -3,13 +3,14 @@
 @tailwind utilities;
 @tailwind components;
 
+/* 
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
   font-family: "Poppins", sans-serif;
-  /* background-color: #141625; */
-}
+  background-color: #141625;
+} */
 
 .rounded-tbr-lg {
   @apply lg:rounded-br-[1.25rem] lg:rounded-tr-[1.25rem] lg:rounded-tl-none lg:rounded-bl-none;

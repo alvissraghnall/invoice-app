@@ -1,145 +1,272 @@
 <script>
-import {Icon, Trash, Plus} from "svelte-hero-icons";
-const submitForm = ev => {
+    import { Input, Select } from "./shared";
+    import { Icon, Trash, Plus } from "svelte-hero-icons";
+    const submitForm = (ev) => {
+        console.log(fields);
+    };
 
-}
+    const deleteInvoice = (id) => {};
 
-const deleteInvoice = id => {
+    const closeInvoice = (ev) => {};
 
-}
+    const createInvoice = (ev) => {};
 
-const closeInvoice = ev => {
+    const addNewInvoiceItem = (ev) => {};
+    $: itemsList = [];
 
-}
-
-const createInvoice = ev => {
-
-}
-
-const addNewInvoiceItem = ev => {
-
-}
-$: itemsList = [];
-
+    const fields = {
+        billerStreetAddress: "",
+        billerCity: "",
+        billerZipCode: "",
+        billerCountry: "",
+        clientName: "",
+        clientStreetAddress: "",
+        clientEmail: "",
+        clientCity: "",
+        clientZipCode: "",
+        clientCountry: "",
+        invoiceDate: null,
+        paymentTerms: null,
+        paymentDueDate: null,
+        productDesc: "",
+        pending: null,
+        invoiceDraft: null,
+        invoiceItemList: [],
+        invoiceTotal: 0,
+    };
 </script>
 
-<div class="invoice-wrap fixed top-0 left-0 bg-transparent w-full h-screen overflow-scroll lg:left-[5.62rem] flex flex-col">
-    <form class="relative p-14 max-w-[44rem] w-full bg-holderColor text-white shadow-xl" on:submit|preventDefault={submitForm}>
+<div
+    class="invoice-wrap fixed top-0 left-0 bg-transparent w-full h-screen overflow-scroll lg:left-[5.62rem] flex flex-col"
+>
+    <form
+        class="relative p-14 max-w-[44rem] w-full bg-holderColor text-white shadow-xl"
+        on:submit|preventDefault={submitForm}
+    >
         <h1 class="font-semibold text-lg mb-12 text-white">New Invoice</h1>
 
-        <div class="bill-from flex flex-col">
-            <h4 class="text-purple-800 ">Bill From</h4>
-            
+        <div class="bill-from mb-12 flex flex-col">
+            <h4 class="text-purple-800">Bill From</h4>
+
             <div class="input flex flex-col mb-6">
-                <label class="text-sm mb-1.5" for="biller-address">Street Address</label>
-                <input type="text" id="biller-address">
+                <label class="text-sm mb-1.5" for="billerStreetAddress"
+                    >Street Address</label
+                >
+                <Input
+                    class="mb-6"
+                    type="text"
+                    id="billerStreetAddress"
+                    bind:value={fields.billerStreetAddress}
+                />
             </div>
 
-            <div class="location-details flex">
-                <div class="input flex flex-col mb-6">
-                    <label class="text-sm mb-1.5" for="biller-city">City</label>
-                    <input type="text" id="biller-city">
+            <div class="location-details gap-4 flex">
+                <div class="input flex flex-col mb-6 flex-1">
+                    <label class="text-sm mb-1.5" for="billerCity">City</label>
+                    <Input
+                        class="mb-6"
+                        type="text"
+                        id="billerCity"
+                        bind:value={fields.billerCity}
+                    />
                 </div>
-                <div class="input flex flex-col mb-6">
-                    <label class="text-sm mb-1.5" for="biller-zip-code">Zip Code</label>
-                    <input type="number" id="biller-zip-code">
+                <div class="input flex flex-col mb-6 flex-1">
+                    <label class="text-sm mb-1.5" for="billerbillerZipCode"
+                        >Zip Code</label
+                    >
+                    <Input
+                        class="mb-6"
+                        type="number"
+                        id="billerbillerZipCode"
+                        bind:value={fields.billerZipCode}
+                    />
                 </div>
-                <div class="input flex flex-col mb-6">
-                    <label class="text-sm mb-1.5" for="biller-country">Country</label>
-                    <input type="text" id="biller-country">
+                <div class="input flex flex-col mb-6 flex-1">
+                    <label class="text-sm mb-1.5" for="billerCountry"
+                        >Country</label
+                    >
+                    <Input
+                        class="mb-6"
+                        type="text"
+                        id="billerCountry"
+                        bind:value={fields.billerCountry}
+                    />
                 </div>
             </div>
         </div>
 
         <!-- Bill To -->
-        <div class="bill-to flex-col flex">
+        <div class="bill-to mb-12 flex-col flex">
             <h4 class="text-[#7152f0] text-xs mb-6">Bill To</h4>
 
             <div class="input flex flex-col mb-6">
-                <label class="text-sm mb-1.5" for="client-name">Client's Name</label>
-                <input type="text" id="client-name">
+                <label class="text-sm mb-1.5" for="clientName"
+                    >Client's Name</label
+                >
+                <Input
+                    class="mb-6"
+                    type="text"
+                    id="clientName"
+                    bind:value={fields.clientName}
+                />
             </div>
             <div class="input flex flex-col mb-6">
-                <label class="text-sm mb-1.5" for="client-email">Client's Email</label>
-                <input type="text" id="client-email">
+                <label class="text-sm mb-1.5" for="clientEmail"
+                    >Client's Email</label
+                >
+                <Input
+                    class="mb-6"
+                    type="text"
+                    id="clientEmail"
+                    bind:value={fields.clientEmail}
+                />
             </div>
             <div class="input flex flex-col mb-6">
-                <label class="text-sm mb-1.5" for="client-address">Client's Address</label>
-                <input type="text" id="client-address">
+                <label class="text-sm mb-1.5" for="clientAddress"
+                    >Client's Address</label
+                >
+                <Input
+                    class="mb-6"
+                    type="text"
+                    id="clientAddress"
+                    bind:value={fields.clientStreetAddress}
+                />
             </div>
 
             <div class="input flex flex-col mb-6">
-                <label class="text-sm mb-1.5" for="client-city">Client's City</label>
-                <input type="text" id="client-city">
+                <label class="text-sm mb-1.5" for="clientCity"
+                    >Client's City</label
+                >
+                <Input
+                    class="mb-6"
+                    type="text"
+                    id="clientCity"
+                    bind:value={fields.clientCity}
+                />
             </div>
             <div class="input flex flex-col mb-6">
-                <label class="text-sm mb-1.5" for="client-zip">Client's Zip Code</label>
-                <input type="text" id="client-zip">
+                <label class="text-sm mb-1.5" for="clientZip"
+                    >Client's Zip Code</label
+                >
+                <Input
+                    class="mb-6"
+                    type="text"
+                    id="clientZip"
+                    bind:value={fields.clientZipCode}
+                />
             </div>
             <div class="input flex flex-col mb-6">
-                <label class="text-sm mb-1.5" for="client-country">Client's Country</label>
-                <input type="text" id="client-country">
+                <label class="text-sm mb-1.5" for="clientCountry"
+                    >Client's Country</label
+                >
+                <Input
+                    class="mb-6"
+                    type="text"
+                    id="clientCountry"
+                    bind:value={fields.clientCountry}
+                />
             </div>
         </div>
 
         <!-- Invoice Details -->
         <div class="invoice-details flex flex-col">
-            <div class="payment flex">
-                <div class="input flex flex-col mb-6">
-                    <label class="text-sm mb-1.5" for="invoiceDate">Invoice Date</label>
-                    <input type="text" id="invoiceDate" disabled>
+            <div class="payment flex gap-6">
+                <div class="input flex flex-col mb-6 flex-1">
+                    <label class="text-sm mb-1.5" for="invoiceDate"
+                        >Invoice Date</label
+                    >
+                    <Input 
+                        class="mb-6" 
+                        type="text" 
+                        id="invoiceDate" 
+                        disabled 
+                        value={fields.invoiceDate}
+                    />
                 </div>
-                <div class="input flex flex-col mb-6">
-                    <label class="text-sm mb-1.5" for="paymentDueDate">Payment Due Date</label>
-                    <input type="text" id="paymentDueDate" disabled>
+                <div class="input flex flex-col mb-6 flex-1">
+                    <label class="text-sm mb-1.5" for="paymentDueDate"
+                        >Payment Due Date</label
+                    >
+                    <Input
+                        class="mb-6"
+                        type="text"
+                        id="paymentDueDate"
+                        disabled
+                        value={fields.paymentDueDate}
+                    />
                 </div>
             </div>
 
-            <div class="input flex flex-col mb-6">
+            <div class="input flex flex-col mb-6 flex-1">
                 <label for="paymentTerms">Payment Terms</label>
-                <select id="paymentTerms">
-                    <option value="30">Net 30 Days</option>
-                    <option value="60">Net 60 Days</option>
-                    <option value="90">Net 90 Days</option>
-                </select>
-            </div> class="text-sm mb-1.5"
+                <Select id="paymentTerms" bind:value={fields.paymentTerms}>
+                    <option value={30}>Net 30 Days</option>
+                    <option value={60}>Net 60 Days</option>
+                    <option value={90}>Net 90 Days</option>
+                </Select>
+            </div>
 
-            <div class="input flex flex-col mb-6">
-                <label for="paymentDescription">Payment Description</label>
-                <input type="text" id="paymentDescription">
-            </div> class="text-sm mb-1.5"
+            <div class="input flex flex-col mb-6 flex-1">
+                <label for="productDesc"
+                    >Payment Description</label
+                >
+                <Input
+                    class="mb-6"
+                    type="text"
+                    id="productDesc"
+                    bind:value={fields.productDesc}
+                />
+            </div>
 
             <div class="items-list">
                 <h3 class="text-[#777f98] text-base mb-4">Item List</h3>
-                <table class="it-list">
-                    <tr class="t_heading">
-                        <th>Item Name</th>
-                        <th>Qty.</th>
-                        <th>Price</th>
-                        <th>Total</th>
+                <table class="it-list w-full">
+                    <tr class="t_heading gap-4 text-xs">
+                        <th class="basis-2/4">Item Name</th>
+                        <th class="basis-1/12">Qty.</th>
+                        <th class="basis-1/5">Price</th>
+                        <th class="basis-1/5 self-center">Total</th>
                     </tr>
                     {#each itemsList as item, index (item.id)}
-                        <td>
-                            <input type="text" value={item.itemName}>
+                    <tr class="tb-items relative mb-6 gap-4 text-xs flex">
+                        <td class="basis-2/4">
+                            <Input
+                                class="mb-6"
+                                type="text"
+                                value={item.itemName}
+                            />
                         </td>
-                        <td>
-                            <input type="text" value={item.qty}>
+                        <td class="basis-1/12">
+                            <Input 
+                                class="mb-6" 
+                                type="text" 
+                                value={item.qty} 
+                            />
                         </td>
-                        <td>
-                            <input type="text" value={item.price}>
+                        <td class="basis-1/5">
+                            <Input
+                                class="mb-6"
+                                type="text"
+                                value={item.price}
+                            />
                         </td>
-                        <td class="flex">
-                            $ { item.total = item.qty * item.price }
+                        <td class="flex basis-1/5 self-center">
+                            $ {(item.total = item.qty * item.price)}
                         </td>
                         <!-- svelte-ignore a11y-click-events-have-key-events -->
-                        <td on:click={() => deleteInvoice(item.id)}>
+                        <td class="absolute top-4 h-4 w-3 right-0" on:click={() => deleteInvoice(item.id)}>
                             <Icon src={Trash} />
                         </td>
+                    </tr>
                     {/each}
                 </table>
 
-                <button type="button" class="flex button" on:click={addNewInvoiceItem}>
-                    <span>
+                <button
+                    type="submit"
+                    class="flex button"
+                    on:click={addNewInvoiceItem}
+                >
+                    <span class="w-5 h-5">
                         <Icon src={Plus} />
                     </span>
                     Add New Invoice
@@ -149,21 +276,23 @@ $: itemsList = [];
 
         <div class="save flex">
             <div class="">
-                <button type="button" class="capitalize bg-red-600" on:click={closeInvoice}>
+                <button
+                    type="button"
+                    class="capitalize bg-red-600"
+                    on:click={closeInvoice}
+                >
                     cancel
                 </button>
             </div>
             <div class="flex">
-                <button type="button" class="bg-purple-900 capitalize" on:click={createInvoice}>
+                <button
+                    type="button"
+                    class="bg-purple-900 capitalize"
+                    on:click={createInvoice}
+                >
                     save draft
                 </button>
             </div>
         </div>
     </form>
 </div>
-
-<style>
-    input, select {
-        @apply w-full bg-regColor text-white rounded py-3 px-1 border-none;
-    }
-</style>
