@@ -1,7 +1,6 @@
 <script>
   import { invoiceModalOpen } from "./store";
-  import Header from "./components/Nav.svelte";
-  import InvoiceModal from "./components/InvoiceModal.svelte";
+  import {InvoiceModal, Header} from "./components";
   import {
     Router
   } from "svelte-router-spa";
@@ -9,6 +8,10 @@
   import { onMount } from "svelte";
   import { fly, slide } from "svelte/transition";
   import { quintOut } from "svelte/easing";
+
+  const closeInvoiceModal = () => {
+    invoiceModalOpen.set(false);
+  }
 
   let mobile = null;
   const checkScreen = () => {
@@ -39,9 +42,9 @@
             // easing: quintOut,
             x: 1000
           }} in:fly={{
-            x: 1000, delay:80, opacity: 1, duration: 444
+            x: 1000, delay:80, opacity: 0, duration: 444
           }}>
-            <InvoiceModal />
+            <InvoiceModal on:close={closeInvoiceModal} />
           </div>
         {/if}
         <Router {routes} />

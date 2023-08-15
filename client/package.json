@@ -1,5 +1,6 @@
 {
   "dependencies": {
+    "@rgossiaux/svelte-headlessui": "^2.0.0",
     "express": "^4.17.1",
     "nodemon": "^2.0.6",
     "npm-run-all": "^4.1.5",

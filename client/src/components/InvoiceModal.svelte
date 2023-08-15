@@ -1,20 +1,73 @@
 <script>
+    import { onMount, createEventDispatcher, } from "svelte";
     import { Button, Input, Select } from "./shared";
     import { Icon, Trash, Plus } from "svelte-hero-icons";
+    import {v4 as uuidv4} from "uuid";
+    import ErrorModal from "./ErrorModal.svelte";
+
+    let errorModalIsOpen = false;
+    const dispatch = createEventDispatcher();
+
     const submitForm = (ev) => {
         console.log(fields);
+        uploadInvoice();
     };
 
-    const deleteInvoice = (id) => {};
+    const uploadInvoice = async () => {
+        console.log(fields.invoiceItemList.length);
+        if(fields.invoiceItemList.length <= 0) {
+            //modal to fill out work items
+            errorModalIsOpen = true;
 
-    const closeInvoice = (ev) => {};
+            return;
+        }
+    }
 
-    const createInvoice = (ev) => {};
+    const deleteInvoiceItem = (id) => {
+        fields.invoiceItemList = fields.invoiceItemList.filter(
+            item => item.id !== id
+        );
+    };
 
-    const saveDraft = (ev) => {};
+    const closeInvoice = (ev) => {
+        dispatch('close');
+    };
 
-    const addNewInvoiceItem = (ev) => {};
-    $: itemsList = [];
+    const setPaymentDueDate = (payTerms) => {
+        if (payTerms !== null) {
+            const date = new Date();
+            fields.paymentDueDate = new Date(date.setDate(date.getDate() + parseInt(payTerms)));
+        }
+    }
+
+    const createInvoice = (ev) => {
+        fields.pending = true;
+    };
+
+    const saveDraft = (ev) => {
+        fields.invoiceDraft = true;
+    };
+
+    const addNewInvoiceItem = (ev) => {
+        fields.invoiceItemList = [
+            ...fields.invoiceItemList,
+            {
+                id: uuidv4(),
+                itemName: "",
+                qty: 0,
+                price: 0,
+                total: 0
+            }
+        ]
+    };
+    $: itemsList = fields.invoiceItemList;
+    $: setPaymentDueDate(fields.paymentTerms);
+
+    onMount(() => {
+        console.log(fields.invoiceDate);
+        // fields.invoiceDate = new Date();
+        // fields.paymentDueDate = null;
+    });
 
     const fields = {
         billerStreetAddress: "",
@@ -27,7 +80,7 @@
         clientCity: "",
         clientZipCode: "",
         clientCountry: "",
-        invoiceDate: null,
+        invoiceDate: new Date(),
         paymentTerms: null,
         paymentDueDate: null,
         productDesc: "",
@@ -39,7 +92,7 @@
 </script>
 
 <div
-    class="invoice-wrap fixed top-0 left-0 bg-transparent h-screen overflow-scroll [&::-webkit-scrollbar]:hidden [-ms-overflow-style:'none'] [scrollbar-width:'none'] lg:left-[5.62rem] flex flex-col"
+    class="invoice-wrap fixed inset-0 left-0 bg-transparent h-screen overflow-y-scroll [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none] lg:left-[5.62rem] w-full flex flex-col"
 >
     <form
         class="relative p-14 max-w-[44rem] w-full bg-holderColor text-white shadow-xl"
@@ -182,7 +235,10 @@
                         type="text" 
                         id="invoiceDate" 
                         disabled 
-                        value={fields.invoiceDate}
+                        value={fields.invoiceDate.toLocaleDateString("en-us", {
+                            year: "numeric", month: "short",
+                            day: "numeric"
+                        })}
                     />
                 </div>
                 <div class="input flex flex-col mb-6 flex-1">
@@ -194,7 +250,10 @@
                         type="text"
                         id="paymentDueDate"
                         disabled
-                        value={fields.paymentDueDate}
+                        value={fields.paymentDueDate ? fields.paymentDueDate.toLocaleDateString("en-us", {
+                            year: "numeric", month: "short",
+                            day: "numeric"
+                        }) : ""}
                     />
                 </div>
             </div>
@@ -222,49 +281,54 @@
 
             <div class="items-list">
                 <h3 class="text-[#777f98] text-base mb-4">Item List</h3>
-                <table class="it-list w-full">
-                    <tr class="t_heading mb-4 gap-4 text-xs">
-                        <th class="text-left basis-2/4">Item Name</th>
-                        <th class="text-left basis-1/12">Qty.</th>
-                        <th class="text-left basis-1/5">Price</th>
-                        <th class="text-left basis-1/5 self-center">Total</th>
-                    </tr>
-                    {#each itemsList as item, index (item.id)}
-                    <tr class="tb-items relative mb-6 gap-4 text-xs flex">
-                        <td class="basis-2/4">
-                            <Input
-                                class="mb-6"
-                                type="text"
-                                value={item.itemName}
-                            />
-                        </td>
-                        <td class="basis-1/12">
-                            <Input 
-                                class="mb-6" 
-                                type="text" 
-                                value={item.qty} 
-                            />
-                        </td>
-                        <td class="basis-1/5">
-                            <Input
-                                class="mb-6"
-                                type="text"
-                                value={item.price}
-                            />
-                        </td>
-                        <td class="flex basis-1/5 self-center">
-                            $ {(item.total = item.qty * item.price)}
-                        </td>
-                        <!-- svelte-ignore a11y-click-events-have-key-events -->
-                        <td class="absolute top-4 h-4 w-3 right-0" on:click={() => deleteInvoice(item.id)}>
-                            <Icon src={Trash} />
-                        </td>
-                    </tr>
-                    {/each}
+                <table class="it-list w-full text-base">
+                    <thead>
+                        <tr class="t_heading mb-4 gap-4 text-xs flex">
+                            <th class="text-left basis-2/4">Item Name</th>
+                            <th class="text-left basis-1/12">Qty.</th>
+                            <th class="text-left basis-1/5">Price</th>
+                            <th class="text-left basis-1/5 self-center">Total</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                        {#each fields.invoiceItemList as item, index (item.id)}
+                        <tr class="tb-items relative mb-6 gap-4 text-xs flex">
+                            <td class="basis-2/4">
+                                <Input
+                                    class="mb-6"
+                                    type="text"
+                                    value={item.itemName}
+                                />
+                            </td>
+                            <td class="basis-1/12">
+                                <Input 
+                                    class="mb-6" 
+                                    type="number" 
+                                    value={item.qty} 
+                                />
+                            </td>
+                            <td class="basis-1/5">
+                                <Input
+                                    class="mb-6"
+                                    type="number"
+                                    value={item.price}
+                                />
+                            </td>
+                            <td class="flex basis-1/5 self-center mb-5 text-lg">
+                                $ {(item.total = item.qty * item.price)}
+                            </td>
+                            <!-- svelte-ignore a11y-click-events-have-key-events -->
+                            <td class="absolute top-2 h-6 w-5 right-0 cursor-pointer" on:click={() => deleteInvoiceItem(item.id)}>
+                                <Icon src={Trash} />
+                            </td>
+                        </tr>
+                        {/each}
+                    </tbody>
                 </table>
 
                 <Button
-                    type="submit"
+                    type="button"
                     class="flex button text-white/85 bg-butCol items-center justify-center w-full !py-3 mt-5"
                     on:click={addNewInvoiceItem}
                 >
@@ -276,7 +340,7 @@
             </div>
         </div>
 
-        <div class="save flex mt-12">
+        <div class="save flex mt-8">
             <div class="flex-1">
                 <Button
                     type="button"
@@ -295,7 +359,7 @@
                     save draft
                 </Button>
                 <Button
-                    type="button"
+                    type="submit"
                     class="bg-purple-900 capitalize"
                     on:click={createInvoice}
                 >
@@ -305,3 +369,18 @@
         </div>
     </form>
 </div>
+
+<ErrorModal 
+    isOpen={errorModalIsOpen} 
+    on:close={() => (errorModalIsOpen = false)}
+>
+    <span slot="content">
+        Must include at least one invoice item.
+    </span>
+</ErrorModal>
+
+<style>
+    .invoice-wrap::-webkit-scrollbar {
+        display: none;
+    }
+</style>
