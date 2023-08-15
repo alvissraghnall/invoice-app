@@ -3,6 +3,9 @@ package com.alviss.invoice_app.invoice;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 @RequiredArgsConstructor
 @Service
 public class InvoiceService {
@@ -17,7 +20,25 @@ public class InvoiceService {
         return mapToDTO(savedInvoice, new InvoiceDTO());
     }
 
+    InvoiceDTO getInvoice (final String id) {
+        return mapToDTO(
+                invoiceRepository.findById(id).orElseThrow(),
+                new InvoiceDTO()
+        );
+    }
+
+    List<InvoiceDTO> getAllInvoices () {
+        return invoiceRepository.findAll().stream().map(
+                invoice -> mapToDTO(invoice, new InvoiceDTO())
+        ).collect(Collectors.toList());
+    }
+
+    InvoiceDTO replaceInvoice (final String id, InvoiceDTO invoiceDTO) {
+        return mapToDTO(invoiceRepository.save(mapToEntity(invoiceDTO, new Invoice())), new InvoiceDTO());
+    }
+
     private Invoice mapToEntity(final InvoiceDTO invoiceDTO, final Invoice invoice) {
+        invoice.setId(invoiceDTO.getId());
         invoice.setBillerCity(invoiceDTO.getBillerCity());
         invoice.setBillerCountry(invoiceDTO.getBillerCountry());
         invoice.setBillerCity(invoiceDTO.getBillerCity());
@@ -39,6 +60,7 @@ public class InvoiceService {
     }
 
     private InvoiceDTO mapToDTO(final Invoice invoice, final InvoiceDTO invoiceDTO) {
+        invoiceDTO.setId(invoice.getId());
         invoiceDTO.setBillerCountry(invoice.getBillerCountry());
         invoiceDTO.setBillerCity(invoice.getBillerCity());
         invoiceDTO.setBillerZipCode(invoice.getBillerZipCode());
