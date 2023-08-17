@@ -52,7 +52,11 @@ public class InvoiceService {
 
         invoice.setStatus(InvoiceStatus.valueOf(invoiceDTO.getStatus()));
         invoice.setInvoiceDate(invoiceDTO.getInvoiceDate());
-        invoice.setInvoiceItemList(invoiceDTO.getInvoiceItemList());
+        invoice.setInvoiceItemList(
+            invoiceDTO.getInvoiceItemList().stream().map(
+                item -> mapInvoiceDTOToItem(item, new InvoiceItem())
+            ).collect(Collectors.toList())
+        );
         invoice.setPaymentDueDate(invoiceDTO.getPaymentDueDate());
         invoice.setPaymentTerms(invoiceDTO.getPaymentTerms());
         invoice.setPaymentDueDate(invoiceDTO.getPaymentDueDate());
@@ -74,11 +78,39 @@ public class InvoiceService {
 
         invoiceDTO.setStatus(invoice.getStatus().toString());
         invoiceDTO.setInvoiceDate(invoice.getInvoiceDate());
-        invoiceDTO.setInvoiceItemList(invoice.getInvoiceItemList());
+        invoiceDTO.setInvoiceItemList(
+            invoice.getInvoiceItemList().stream().map(
+                item -> mapInvoiceItemToDTO(item, new InvoiceItemDTO())
+            ).collect(Collectors.toList())
+        );
         invoiceDTO.setPaymentDueDate(invoice.getPaymentDueDate());
         invoiceDTO.setPaymentTerms(invoice.getPaymentTerms());
         invoiceDTO.setPaymentDueDate(invoice.getPaymentDueDate());
         return invoiceDTO;
+    }
+
+    private InvoiceItem mapInvoiceDTOToItem (
+        final InvoiceItemDTO invoiceItemDTO,
+        final InvoiceItem invoiceItem
+    ) {
+        invoiceItem.setId(invoiceItemDTO.getId());
+        invoiceItem.setQty(invoiceItemDTO.getQty());
+        invoiceItem.setPrice(invoiceItemDTO.getPrice());
+        invoiceItem.setItemName(invoiceItemDTO.getItemName());
+
+        return invoiceItem;
+    }
+
+    private InvoiceItemDTO mapInvoiceItemToDTO (
+        final InvoiceItem invoiceItem,
+        final InvoiceItemDTO invoiceItemDTO
+    ) {
+        invoiceItemDTO.setId(invoiceItem.getId());
+        invoiceItemDTO.setQty(invoiceItem.getQty());
+        invoiceItemDTO.setPrice(invoiceItem.getPrice());
+        invoiceItemDTO.setItemName(invoiceItem.getItemName());
+
+        return invoiceItemDTO;
     }
 
 }

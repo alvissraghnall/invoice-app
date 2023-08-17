@@ -5,9 +5,11 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import javax.validation.Valid;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import java.util.Date;
+import java.util.List;
 
 @AllArgsConstructor
 @Data
@@ -49,6 +51,7 @@ public class InvoiceDTO {
 
     @NotNull(message = "Invoice items must be provided!")
     @NotEmpty(message = "Invoice items must not be null!")
-    private InvoiceItem[] invoiceItemList;
+    @Valid
+    private List<InvoiceItemDTO> invoiceItemList;
 
 }

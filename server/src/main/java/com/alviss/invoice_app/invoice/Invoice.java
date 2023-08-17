@@ -7,6 +7,7 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.util.Date;
+import java.util.List;
 
 @Document
 @NoArgsConstructor
@@ -47,6 +48,6 @@ public class Invoice {
 
     private InvoiceStatus status = InvoiceStatus.PENDING;
 
-    private InvoiceItem[] invoiceItemList;
+    private List<InvoiceItem> invoiceItemList;
     
 }
