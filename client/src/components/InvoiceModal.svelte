@@ -4,6 +4,7 @@
     import { Icon, Trash, Plus } from "svelte-hero-icons";
     import {v4 as uuidv4} from "uuid";
     import ErrorModal from "./ErrorModal.svelte";
+    import { InvoiceService } from "../generated";
 
     let errorModalIsOpen = false;
     const dispatch = createEventDispatcher();
@@ -21,6 +22,13 @@
 
             return;
         }
+        InvoiceService.createInvoice(
+            fields
+        ).catch(
+            err => {
+                console.error(err);
+            }
+        );
     }
 
     const deleteInvoiceItem = (id) => {
@@ -92,7 +100,7 @@
 </script>
 
 <div
-    class="invoice-wrap fixed inset-0 left-0 bg-transparent h-screen overflow-y-scroll [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none] lg:left-[5.62rem] w-full flex flex-col"
+    class="invoice-wrap left-0 bg-transparent h-screen overflow-y-scroll [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none] lg:left-[5.62rem] w-full flex flex-col"
 >
     <form
         class="relative p-14 max-w-[44rem] w-full bg-holderColor text-white shadow-xl"
@@ -104,46 +112,44 @@
             <h4 class="text-purple-800">Bill From</h4>
 
             <div class="input flex flex-col mb-6">
-                <label class="text-sm mb-1.5" for="billerStreetAddress"
-                    >Street Address</label
-                >
                 <Input
                     class="mb-6"
                     type="text"
                     id="billerStreetAddress"
+                    name="billerStreetAddress"
+                    label="Street Address"
                     bind:value={fields.billerStreetAddress}
                 />
             </div>
 
             <div class="location-details gap-4 flex">
                 <div class="input flex flex-col mb-6 flex-1">
-                    <label class="text-sm mb-1.5" for="billerCity">City</label>
                     <Input
                         class="mb-6"
                         type="text"
                         id="billerCity"
+                        name="billerCity"
+                        label="City"
                         bind:value={fields.billerCity}
                     />
                 </div>
                 <div class="input flex flex-col mb-6 flex-1">
-                    <label class="text-sm mb-1.5" for="billerbillerZipCode"
-                        >Zip Code</label
-                    >
                     <Input
                         class="mb-6"
                         type="number"
+                        label="Zip Code"
                         id="billerbillerZipCode"
+                        name="billerbillerZipCode"
                         bind:value={fields.billerZipCode}
                     />
                 </div>
                 <div class="input flex flex-col mb-6 flex-1">
-                    <label class="text-sm mb-1.5" for="billerCountry"
-                        >Country</label
-                    >
                     <Input
                         class="mb-6"
                         type="text"
                         id="billerCountry"
+                        name="billerCountry"
+                        label="Country"
                         bind:value={fields.billerCountry}
                     />
                 </div>
@@ -155,69 +161,63 @@
             <h4 class="text-[#7152f0] text-xs mb-6">Bill To</h4>
 
             <div class="input flex flex-col mb-6">
-                <label class="text-sm mb-1.5" for="clientName"
-                    >Client's Name</label
-                >
                 <Input
                     class="mb-6"
                     type="text"
                     id="clientName"
+                    name="clientName"
+                    label="Client's Name"
                     bind:value={fields.clientName}
                 />
             </div>
             <div class="input flex flex-col mb-6">
-                <label class="text-sm mb-1.5" for="clientEmail"
-                    >Client's Email</label
-                >
                 <Input
                     class="mb-6"
                     type="text"
                     id="clientEmail"
+                    name="clientEmail"
+                    label="Client's Email"
                     bind:value={fields.clientEmail}
                 />
             </div>
             <div class="input flex flex-col mb-6">
-                <label class="text-sm mb-1.5" for="clientAddress"
-                    >Client's Address</label
-                >
                 <Input
                     class="mb-6"
                     type="text"
                     id="clientAddress"
+                    name="clientAddress"
+                    label="Client's Address"
                     bind:value={fields.clientStreetAddress}
                 />
             </div>
 
             <div class="input flex flex-col mb-6">
-                <label class="text-sm mb-1.5" for="clientCity"
-                    >Client's City</label
-                >
                 <Input
                     class="mb-6"
                     type="text"
+                    label="Client's City"
                     id="clientCity"
+                    name="clientCity"
                     bind:value={fields.clientCity}
                 />
             </div>
             <div class="input flex flex-col mb-6">
-                <label class="text-sm mb-1.5" for="clientZip"
-                    >Client's Zip Code</label
-                >
                 <Input
                     class="mb-6"
                     type="text"
                     id="clientZip"
+                    name="clientZip"
+                    label="Client's Zip Code"
                     bind:value={fields.clientZipCode}
                 />
             </div>
             <div class="input flex flex-col mb-6">
-                <label class="text-sm mb-1.5" for="clientCountry"
-                    >Client's Country</label
-                >
                 <Input
                     class="mb-6"
                     type="text"
                     id="clientCountry"
+                    name="clientCountry"
+                    label="Client's Country"
                     bind:value={fields.clientCountry}
                 />
             </div>
@@ -227,13 +227,12 @@
         <div class="invoice-details flex flex-col">
             <div class="payment flex gap-6">
                 <div class="input flex flex-col mb-6 flex-1">
-                    <label class="text-sm mb-1.5" for="invoiceDate"
-                        >Invoice Date</label
-                    >
                     <Input 
                         class="mb-6" 
                         type="text" 
                         id="invoiceDate" 
+                        name="invoiceDate" 
+                        label="Invoice Date"
                         disabled 
                         value={fields.invoiceDate.toLocaleDateString("en-us", {
                             year: "numeric", month: "short",
@@ -242,12 +241,11 @@
                     />
                 </div>
                 <div class="input flex flex-col mb-6 flex-1">
-                    <label class="text-sm mb-1.5" for="paymentDueDate"
-                        >Payment Due Date</label
-                    >
                     <Input
                         class="mb-6"
+                        label="Payment Due Date"
                         type="text"
+                        name="paymentDueDate"
                         id="paymentDueDate"
                         disabled
                         value={fields.paymentDueDate ? fields.paymentDueDate.toLocaleDateString("en-us", {
@@ -268,13 +266,12 @@
             </div>
 
             <div class="input flex flex-col mb-6 flex-1">
-                <label for="productDesc"
-                    >Payment Description</label
-                >
                 <Input
                     class="mb-6"
                     type="text"
+                    label="Product Description"
                     id="productDesc"
+                    name="productDesc"
                     bind:value={fields.productDesc}
                 />
             </div>

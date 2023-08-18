@@ -53,6 +53,7 @@ public class RestExceptionHandler {
     }
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
     public ResponseEntity<ErrorResponse> handleMethodArgumentNotValid(
             final MethodArgumentNotValidException exception) {
         final BindingResult bindingResult = exception.getBindingResult();
@@ -80,6 +81,7 @@ public class RestExceptionHandler {
     }
 
     @ExceptionHandler(HttpMessageNotReadableException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
     protected ResponseEntity<ErrorResponse> handleHttpMessageNotReadable(HttpMessageNotReadableException ex, WebRequest request) {
         final ErrorResponse errorResponse = new ErrorResponse();
         errorResponse.setHttpStatus(HttpStatus.BAD_REQUEST.value());
@@ -101,6 +103,7 @@ public class RestExceptionHandler {
 
     @ExceptionHandler(HttpRequestMethodNotSupportedException.class)
     @Order(Ordered.HIGHEST_PRECEDENCE)
+    @ResponseStatus(HttpStatus.METHOD_NOT_ALLOWED)
     protected ResponseEntity<ErrorResponse> handleHttpRequestMethodNotSupported(HttpRequestMethodNotSupportedException ex, WebRequest request) {
         ex.printStackTrace();
         final ErrorResponse errorResponse = new ErrorResponse();
@@ -111,17 +114,19 @@ public class RestExceptionHandler {
         return new ResponseEntity<>(errorResponse, HttpStatus.METHOD_NOT_ALLOWED);
     }
 
+    @ResponseStatus(HttpStatus.NOT_FOUND)
     @ExceptionHandler(NoSuchElementException.class)
     public ResponseEntity<ErrorResponse> handleNoSuchElementException(final NoSuchElementException exception) {
         exception.printStackTrace();
         final ErrorResponse errorResponse = new ErrorResponse();
-        errorResponse.setHttpStatus(HttpStatus.BAD_REQUEST.value());
+        errorResponse.setHttpStatus(HttpStatus.NOT_FOUND.value());
         errorResponse.setException(exception.getClass().getSimpleName());
         errorResponse.setMessage("Document with ID provided does not exist!");
-        return new ResponseEntity<>(errorResponse, HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<>(errorResponse, HttpStatus.NOT_FOUND);
     }
 
     @ExceptionHandler(IllegalArgumentException.class)
+    @ResponseStatus(HttpStatus.UNPROCESSABLE_ENTITY)
     public ResponseEntity<ErrorResponse> handleIllegalArgument(final IllegalArgumentException exception) {
         exception.printStackTrace();
         final ErrorResponse errorResponse = new ErrorResponse();
@@ -132,7 +137,7 @@ public class RestExceptionHandler {
         return new ResponseEntity<>(errorResponse, HttpStatus.UNPROCESSABLE_ENTITY);
     }
 
-    @ExceptionHandler(Throwable.class)
+    @ExceptionHandler({ Throwable.class, RuntimeException.class })
     public ResponseEntity<ErrorResponse> handleThrowable(final Throwable exception) {
         exception.printStackTrace();
         final ErrorResponse errorResponse = new ErrorResponse();

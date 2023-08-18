@@ -1,5 +1,6 @@
 <script>
 import { Button } from "./shared";
+import { fade } from 'svelte/transition';
 import { 
     Dialog, 
     DialogDescription, 
@@ -52,7 +53,7 @@ const closeModal = (ev) => {
                     leaveFrom="transform scale-100 opacity-100" 
                     leaveTo="transform scale-90 opacity-0"
                 >
-                    <div class="w-full max-w-md transform overflow-hidden rounded-lg bg-white p-6 align-middle shadow-xl transition-all">
+                    <div transition:fade={{duration: 150}} class="w-full max-w-md transform overflow-hidden rounded-lg bg-white p-6 align-middle shadow-xl transition-all">
                         <DialogTitle class="text-lg font-medium leading-6 text-gray-800">
                             <slot name="title">
                                 Error!

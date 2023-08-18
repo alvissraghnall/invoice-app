@@ -6,5 +6,7 @@
   const { onBlur } = getContext('form');
 </script>
 
-<label for={name}>{label}</label>
+{#if label}
+  <label for={name}>{label}</label>
+{/if}
 <input {name} {type} on:blur={onBlur} />

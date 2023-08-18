@@ -1,6 +1,6 @@
 <script>
   import { invoiceModalOpen } from "./store";
-  import {InvoiceModal, Header} from "./components";
+  import {InvoiceModal, ModalWrapper, Header} from "./components";
   import {
     Router
   } from "svelte-router-spa";
@@ -36,16 +36,17 @@
       <Header />
       <div class="py-0 px-5 flex-1 relative flex flex-col">
         {#if $invoiceModalOpen}
-          <div out:fly={{
-            duration: 620,
+          <!-- <div out:fly={{
+            duration: 520,
             opacity: 0.5,
             // easing: quintOut,
-            x: 1000
+            x: 250
           }} in:fly={{
-            x: 1000, delay:80, opacity: 0, duration: 444
+            x: 250, delay:80, opacity: 0, duration: 444
           }}>
             <InvoiceModal on:close={closeInvoiceModal} />
-          </div>
+          </div> -->
+          <ModalWrapper />
         {/if}
         <Router {routes} />
       </div> 

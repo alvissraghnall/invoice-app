@@ -1,0 +1,498 @@
+{
+    "openapi": "3.0.1",
+    "info": {
+      "title": "Invoice Application",
+      "description": "RESTful API with basic CRUD functionality that enables user manage invoices.",
+      "termsOfService": "",
+      "contact": {
+        "name": "Alviss Raghnall",
+        "url": "https://alvissraghnall.vercel.app",
+        "email": "isiomastewart@gmail.com"
+      },
+      "license": {
+        "name": "MIT",
+        "url": "https://choosealicense.com/licenses/mit"
+      },
+      "version": "1.0"
+    },
+    "servers": [
+      {
+        "url": "http://localhost:8080/",
+        "description": "Server URL in development environment"
+      },
+      {
+        "url": "http://alviss-invoice.vercel.app",
+        "description": "Server URL in production environment"
+      }
+    ],
+    "tags": [
+      {
+        "name": "Invoice",
+        "description": "Invoice management APIs"
+      }
+    ],
+    "paths": {
+      "/invoice/{id}": {
+        "get": {
+          "tags": [
+            "Invoice",
+            "get",
+            "invoice"
+          ],
+          "summary": "Gets an invoice",
+          "description": "Gets an invoice by specified ID provided in path as variable.",
+          "operationId": "getInvoice",
+          "parameters": [
+            {
+              "name": "id",
+              "in": "path",
+              "required": true,
+              "schema": {
+                "type": "string"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Gets an invoice",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/InvoiceDTO"
+                  }
+                }
+              }
+            },
+            "400": {
+              "description": "Bad Request",
+              "content": {
+                "*/*": {
+                  "schema": {
+                    "$ref": "#/components/schemas/ErrorResponse"
+                  }
+                }
+              }
+            },
+            "404": {
+              "description": "Not Found",
+              "content": {
+                "*/*": {
+                  "schema": {
+                    "$ref": "#/components/schemas/ErrorResponse"
+                  }
+                }
+              }
+            },
+            "405": {
+              "description": "Method Not Allowed",
+              "content": {
+                "*/*": {
+                  "schema": {
+                    "$ref": "#/components/schemas/ErrorResponse"
+                  }
+                }
+              }
+            },
+            "415": {
+              "description": "Unsupported Media Type",
+              "content": {
+                "*/*": {
+                  "schema": {
+                    "$ref": "#/components/schemas/ErrorResponse"
+                  }
+                }
+              }
+            },
+            "422": {
+              "description": "Unprocessable Entity",
+              "content": {
+                "*/*": {
+                  "schema": {
+                    "$ref": "#/components/schemas/ErrorResponse"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "put": {
+          "tags": [
+            "Invoice",
+            "invoice",
+            "put"
+          ],
+          "summary": "Updates an invoice",
+          "description": "Updates an invoice via specified ID in path as variable, and parts of the entity to be updated, provided in response body.",
+          "operationId": "replaceById",
+          "parameters": [
+            {
+              "name": "id",
+              "in": "path",
+              "required": true,
+              "schema": {
+                "type": "string"
+              }
+            }
+          ],
+          "requestBody": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InvoiceDTO"
+                }
+              }
+            },
+            "required": true
+          },
+          "responses": {
+            "204": {
+              "description": "Replaces an invoice item",
+              "content": {
+                "*/*": {
+                  "schema": {
+                    "type": "object"
+                  }
+                }
+              }
+            },
+            "400": {
+              "description": "Bad Request",
+              "content": {
+                "*/*": {
+                  "schema": {
+                    "$ref": "#/components/schemas/ErrorResponse"
+                  }
+                }
+              }
+            },
+            "404": {
+              "description": "Not Found",
+              "content": {
+                "*/*": {
+                  "schema": {
+                    "$ref": "#/components/schemas/ErrorResponse"
+                  }
+                }
+              }
+            },
+            "405": {
+              "description": "Method Not Allowed",
+              "content": {
+                "*/*": {
+                  "schema": {
+                    "$ref": "#/components/schemas/ErrorResponse"
+                  }
+                }
+              }
+            },
+            "415": {
+              "description": "Unsupported Media Type",
+              "content": {
+                "*/*": {
+                  "schema": {
+                    "$ref": "#/components/schemas/ErrorResponse"
+                  }
+                }
+              }
+            },
+            "422": {
+              "description": "Unprocessable Entity",
+              "content": {
+                "*/*": {
+                  "schema": {
+                    "$ref": "#/components/schemas/ErrorResponse"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "/invoice": {
+        "get": {
+          "tags": [
+            "Invoice",
+            "get",
+            "invoice"
+          ],
+          "summary": "Gets all invoices",
+          "description": "Gets all invoices.",
+          "operationId": "getAllInvoices",
+          "responses": {
+            "200": {
+              "description": "Gets all invoices",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/InvoiceDTO"
+                  }
+                }
+              }
+            },
+            "400": {
+              "description": "Bad Request",
+              "content": {
+                "*/*": {
+                  "schema": {
+                    "$ref": "#/components/schemas/ErrorResponse"
+                  }
+                }
+              }
+            },
+            "404": {
+              "description": "Not Found",
+              "content": {
+                "*/*": {
+                  "schema": {
+                    "$ref": "#/components/schemas/ErrorResponse"
+                  }
+                }
+              }
+            },
+            "405": {
+              "description": "Method Not Allowed",
+              "content": {
+                "*/*": {
+                  "schema": {
+                    "$ref": "#/components/schemas/ErrorResponse"
+                  }
+                }
+              }
+            },
+            "415": {
+              "description": "Unsupported Media Type",
+              "content": {
+                "*/*": {
+                  "schema": {
+                    "$ref": "#/components/schemas/ErrorResponse"
+                  }
+                }
+              }
+            },
+            "422": {
+              "description": "Unprocessable Entity",
+              "content": {
+                "*/*": {
+                  "schema": {
+                    "$ref": "#/components/schemas/ErrorResponse"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "post": {
+          "tags": [
+            "Invoice",
+            "post",
+            "invoice"
+          ],
+          "summary": "Create new invoice",
+          "description": "Create a new invoice by specifying required, and/or optional fields in request body.",
+          "operationId": "createInvoice",
+          "requestBody": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InvoiceDTO"
+                }
+              }
+            },
+            "required": true
+          },
+          "responses": {
+            "201": {
+              "description": "creates a new invoice",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/InvoiceDTO"
+                  }
+                }
+              }
+            },
+            "400": {
+              "description": "Bad Request",
+              "content": {
+                "*/*": {
+                  "schema": {
+                    "$ref": "#/components/schemas/ErrorResponse"
+                  }
+                }
+              }
+            },
+            "404": {
+              "description": "Not Found",
+              "content": {
+                "*/*": {
+                  "schema": {
+                    "$ref": "#/components/schemas/ErrorResponse"
+                  }
+                }
+              }
+            },
+            "405": {
+              "description": "Method Not Allowed",
+              "content": {
+                "*/*": {
+                  "schema": {
+                    "$ref": "#/components/schemas/ErrorResponse"
+                  }
+                }
+              }
+            },
+            "415": {
+              "description": "Unsupported Media Type",
+              "content": {
+                "*/*": {
+                  "schema": {
+                    "$ref": "#/components/schemas/ErrorResponse"
+                  }
+                }
+              }
+            },
+            "422": {
+              "description": "Unprocessable Entity",
+              "content": {
+                "*/*": {
+                  "schema": {
+                    "$ref": "#/components/schemas/ErrorResponse"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "components": {
+      "schemas": {
+        "ErrorResponse": {
+          "type": "object",
+          "properties": {
+            "httpStatus": {
+              "type": "integer",
+              "format": "int32"
+            },
+            "exception": {
+              "type": "string"
+            },
+            "message": {
+              "type": "string"
+            },
+            "fieldErrors": {
+              "type": "array",
+              "items": {
+                "$ref": "#/components/schemas/FieldError"
+              }
+            }
+          }
+        },
+        "FieldError": {
+          "type": "object",
+          "properties": {
+            "field": {
+              "type": "string"
+            },
+            "errorCode": {
+              "type": "string"
+            },
+            "message": {
+              "type": "string"
+            }
+          }
+        },
+        "InvoiceDTO": {
+          "required": [
+            "invoiceItemList"
+          ],
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string"
+            },
+            "billerStreetAddress": {
+              "type": "string"
+            },
+            "billerCity": {
+              "type": "string"
+            },
+            "billerZipCode": {
+              "type": "integer",
+              "format": "int32"
+            },
+            "billerCountry": {
+              "type": "string"
+            },
+            "clientName": {
+              "type": "string"
+            },
+            "clientStreetAddress": {
+              "type": "string"
+            },
+            "clientEmail": {
+              "type": "string"
+            },
+            "clientCity": {
+              "type": "string"
+            },
+            "clientZipCode": {
+              "type": "integer",
+              "format": "int32"
+            },
+            "clientCountry": {
+              "type": "string"
+            },
+            "invoiceDate": {
+              "type": "string",
+              "format": "date-time"
+            },
+            "paymentTerms": {
+              "type": "integer",
+              "format": "int32"
+            },
+            "paymentDueDate": {
+              "type": "string",
+              "format": "date-time"
+            },
+            "productDesc": {
+              "type": "string"
+            },
+            "status": {
+              "type": "string"
+            },
+            "invoiceItemList": {
+              "type": "array",
+              "items": {
+                "$ref": "#/components/schemas/InvoiceItemDTO"
+              }
+            }
+          }
+        },
+        "InvoiceItemDTO": {
+          "required": [
+            "id",
+            "itemName",
+            "price",
+            "qty"
+          ],
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string"
+            },
+            "itemName": {
+              "type": "string"
+            },
+            "qty": {
+              "type": "integer",
+              "format": "int32"
+            },
+            "price": {
+              "type": "number"
+            }
+          }
+        }
+      }
+    }
+  }

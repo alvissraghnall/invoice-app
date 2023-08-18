@@ -3,11 +3,18 @@
     export let type = "text";
     export let id = "";
     export let value = "";
+    export let label;
+    export let name;
     export { className as class };
+    export let labelClassNames;
 
     function typeAction (node) {
         node.type = type;
     }
 </script>
 
-<input use:typeAction class={`w-full rounded-xl bg-regColor text-white py-3 px-1 border-none focus\:outline-none ${className}`} id={id} bind:value={value} />
+
+{#if label}
+  <label class="text-sm mb-1.5 {labelClassNames}" for={name}>{label}</label>
+{/if}
+<input use:typeAction {name} class={`w-full rounded-xl bg-regColor text-white py-3 px-1 border-none focus\:outline-none ${className}`} {id} bind:value={value} />
