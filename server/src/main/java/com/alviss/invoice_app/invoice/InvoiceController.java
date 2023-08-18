@@ -42,7 +42,7 @@ public class InvoiceController {
 
     @PutMapping("/{id}")
     @ApiResponse(description = "Replaces an invoice item", responseCode = "204")
-    public ResponseEntity replaceById (
+    public ResponseEntity<?> replaceById (
             @PathVariable String id,
             @RequestBody InvoiceDTO invoiceDTO
     ) {

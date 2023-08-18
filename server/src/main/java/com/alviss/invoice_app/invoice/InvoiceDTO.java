@@ -1,6 +1,8 @@
 package com.alviss.invoice_app.invoice;
 
 import com.alviss.invoice_app.common.ValidateEnum;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -14,6 +16,7 @@ import java.util.List;
 @AllArgsConstructor
 @Data
 @NoArgsConstructor
+@JsonIgnoreProperties(ignoreUnknown = false)
 public class InvoiceDTO {
 
     private String id;

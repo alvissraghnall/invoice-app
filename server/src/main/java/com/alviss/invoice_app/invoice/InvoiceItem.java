@@ -1,5 +1,7 @@
 package com.alviss.invoice_app.invoice;
 
+import java.math.BigDecimal;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -13,8 +15,8 @@ public class InvoiceItem {
 
     private String itemName;
 
-    private float qty;
+    private int qty;
 
-    private float price;
+    private BigDecimal price;
 
 }

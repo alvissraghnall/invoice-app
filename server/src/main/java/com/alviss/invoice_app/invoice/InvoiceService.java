@@ -34,7 +34,9 @@ public class InvoiceService {
     }
 
     InvoiceDTO replaceInvoice (final String id, InvoiceDTO invoiceDTO) {
-        return mapToDTO(invoiceRepository.save(mapToEntity(invoiceDTO, new Invoice())), new InvoiceDTO());
+        final Invoice invoice = mapToEntity(invoiceDTO, new Invoice());
+        invoice.setId(id);
+        return mapToDTO(invoiceRepository.save(invoice), new InvoiceDTO());
     }
 
     private Invoice mapToEntity(final InvoiceDTO invoiceDTO, final Invoice invoice) {

@@ -1,5 +1,7 @@
 package com.alviss.invoice_app.common;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -85,6 +87,14 @@ public class RestExceptionHandler {
         errorResponse.setMessage(ex.getMessage());
         if (ex.getMessage().contains("Required request body is missing")) {
             errorResponse.setMessage("Please pass in a request body!");
+        } else if (ex.getMessage().contains("JSON parse error: Cannot coerce Floating-point value")) {
+            final FieldError fieldError = new FieldError();
+            fieldError.setErrorCode("MustBeInteger");
+            fieldError.setField("invoiceItemList[0].qty");
+            fieldError.setMessage("'qty' must be an Integer, and not a decimal value!");
+            errorResponse.setFieldErrors(new ArrayList<FieldError>(Arrays.asList(fieldError)));
+            // System.out.println(error.toString());
+            errorResponse.setMessage("Validation of required input fields failed!");
         }
         return new ResponseEntity<>(errorResponse, HttpStatus.BAD_REQUEST);
     }
