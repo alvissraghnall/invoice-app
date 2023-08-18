@@ -295,21 +295,21 @@
                                 <Input
                                     class="mb-6"
                                     type="text"
-                                    value={item.itemName}
+                                    bind:value={item.itemName}
                                 />
                             </td>
                             <td class="basis-1/12">
                                 <Input 
                                     class="mb-6" 
                                     type="number" 
-                                    value={item.qty} 
+                                    bind:value={item.qty} 
                                 />
                             </td>
                             <td class="basis-1/5">
                                 <Input
                                     class="mb-6"
                                     type="number"
-                                    value={item.price}
+                                    bind:value={item.price}
                                 />
                             </td>
                             <td class="flex basis-1/5 self-center mb-5 text-lg">

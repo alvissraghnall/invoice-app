@@ -19,10 +19,10 @@
   <Dialog as="div" class="relative z-10" on:close={toggleInvoiceModal}>
     <TransitionChild
       as="div"
-      enter="ease-in-out duration-500"
+      enter="transition-opacity ease-in-out duration-300"
       enterFrom="opacity-0"
       enterTo="opacity-100"
-      leave="ease-in-out duration-500"
+      leave="transition-opacity ease-linear duration-300"
       leaveFrom="opacity-100"
       leaveTo="opacity-0"
     >
