@@ -10,6 +10,7 @@
     import Loading from "./Loading.svelte";
 
     let errorModalIsOpen = false;
+    let closeInvoiceModalIsOpen = false;
     let loading = false;
     const dispatch = createEventDispatcher();
 
@@ -399,6 +400,11 @@
         Must include at least one invoice item.
     </span>
 </ErrorModal>
+
+<CloseInvoiceModal
+    isOpen={closeInvoiceModalIsOpen}
+    on:close={() => (closeInvoiceModalIsOpen = false)}
+/>
 
 <style>
     .invoice-wrap::-webkit-scrollbar {

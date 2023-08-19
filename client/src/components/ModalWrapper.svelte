@@ -1,5 +1,5 @@
 <script>
-  import { invoiceModalOpen } from "../store";
+  import { invoiceModalOpen, closeModalOpen } from "../store";
   import {
     Dialog,
     DialogOverlay,
@@ -12,6 +12,7 @@
 
   const toggleInvoiceModal = () => {
     invoiceModalOpen.update((value) => !value);
+    closeModalOpen.set(true);
   };
 
   const closeInvoiceModal = () => {

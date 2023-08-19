@@ -1,4 +1,5 @@
 <script>
+import { closeModalOpen, invoiceModalOpen } from "../store";
 import Modal from "./Modal.svelte";
 import { Button } from "./shared";
 import { 
@@ -6,11 +7,17 @@ import {
     DialogTitle, 
 } from '@rgossiaux/svelte-headlessui';
 
-export let isOpen;
+const closeModal = () => {
+    closeModalOpen.set(false);
+}
 
+const closeInvoice = () => {
+    closeModal();
+    invoiceModalOpen.set(false);
+}
 </script>
 
-<Modal {isOpen} on:close>
+<Modal isOpen{$closeModalOpen} on:close>
     <!-- <div class=""> -->
         <p class="text-center">Are you sure you want to exit? You will lose all changes, as they won't be saved!</p>
 
