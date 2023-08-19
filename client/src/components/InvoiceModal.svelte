@@ -6,8 +6,10 @@
     import ErrorModal from "./ErrorModal.svelte";
     import { InvoiceService } from "../generated";
     import {toast} from "@zerodevx/svelte-toast"
+    import Loading from "./Loading.svelte";
 
     let errorModalIsOpen = false;
+    let loading = false;
     const dispatch = createEventDispatcher();
 
     const submitForm = (ev) => {
@@ -23,6 +25,8 @@
 
             return;
         }
+        loading = true;
+
         InvoiceService.createInvoice(
             fields
         ).then(() => {
@@ -34,14 +38,16 @@
             })
         }).catch(
             err => {
-                console.error(err);
+                console.error(err, err.body);
                 toast.push("Invoice creation failed!", {
                     theme: {
                         '--toastBackground': 'red',
                     }
                 })
             }
-        );
+        ).finally(() => {
+            loading = false;
+        });
     }
 
     const deleteInvoiceItem = (id) => {
@@ -81,7 +87,9 @@
             }
         ]
     };
-    $: itemsList = fields.invoiceItemList;
+    $: invoiceTotal = fields.invoiceItemList.reduce(
+        (acc, curr) => acc += curr.total, 0
+    );
     $: setPaymentDueDate(fields.paymentTerms);
 
     onMount(() => {
@@ -108,7 +116,6 @@
         pending: null,
         invoiceDraft: null,
         invoiceItemList: [],
-        invoiceTotal: 0,
     };
 </script>
 
@@ -119,6 +126,9 @@
         class="relative p-14 max-w-[44rem] w-full bg-holderColor text-white shadow-xl"
         on:submit|preventDefault={submitForm}
     >
+        {#if loading}
+            <Loading />
+        {/if}
         <h1 class="font-semibold text-lg mb-12 text-white">New Invoice</h1>
 
         <div class="bill-from mb-12 flex flex-col">

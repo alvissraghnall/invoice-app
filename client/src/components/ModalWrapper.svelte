@@ -7,11 +7,15 @@
     TransitionChild,
     TransitionRoot,
   } from "@rgossiaux/svelte-headlessui";
-  import { Icon, XMark } from "svelte-hero-icons";
+  import { Icon, XMark, } from "svelte-hero-icons";
   import InvoiceModal from "./InvoiceModal.svelte";
 
   const toggleInvoiceModal = () => {
     invoiceModalOpen.update((value) => !value);
+  };
+
+  const closeInvoiceModal = () => {
+    invoiceModalOpen.set(false);
   };
 </script>
 
@@ -48,7 +52,7 @@
             <!-- <div class="flex-1 overflow-y-auto px-4 py-6 sm:px-6"> -->
               
               <div class="flow-root my-3">
-                <InvoiceModal />
+                <InvoiceModal on:close={closeInvoiceModal} />
               </div>
             <!-- </div> -->
           </div>
