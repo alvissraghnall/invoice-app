@@ -50,7 +50,8 @@ public class InvoiceDTO {
     private String productDesc;
 
     @ValidateEnum(targetClassType = InvoiceStatus.class, message = "Invalid status provided.")
-    private String status;
+    @Null
+    private String status = "PENDING";
 
     @NotNull(message = "Invoice items must be provided!")
     @NotEmpty(message = "Invoice items must not be null!")

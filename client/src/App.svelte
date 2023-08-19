@@ -6,6 +6,7 @@
   import { onMount } from "svelte";
   import { fly, slide } from "svelte/transition";
   import { quintOut } from "svelte/easing";
+  import {SvelteToast} from "@zerodevx/svelte-toast"
 
   const closeInvoiceModal = () => {
     invoiceModalOpen.set(false);
@@ -61,6 +62,7 @@
     </div>
   {/if}
 </div>
+<SvelteToast />
 
 <style global lang="postcss">
   @tailwind base;

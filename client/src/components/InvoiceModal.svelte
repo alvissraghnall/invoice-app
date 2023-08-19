@@ -5,6 +5,7 @@
     import {v4 as uuidv4} from "uuid";
     import ErrorModal from "./ErrorModal.svelte";
     import { InvoiceService } from "../generated";
+    import {toast} from "@zerodevx/svelte-toast"
 
     let errorModalIsOpen = false;
     const dispatch = createEventDispatcher();
@@ -24,9 +25,21 @@
         }
         InvoiceService.createInvoice(
             fields
-        ).catch(
+        ).then(() => {
+            toast.push("Invoice successfully created!", {
+                 theme: {
+                    '--toastBackground': 'green',
+                    '--toastColor': 'white',
+                }
+            })
+        }).catch(
             err => {
                 console.error(err);
+                toast.push("Invoice creation failed!", {
+                    theme: {
+                        '--toastBackground': 'red',
+                    }
+                })
             }
         );
     }
