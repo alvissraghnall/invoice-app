@@ -4,6 +4,7 @@
     import { Icon, Trash, Plus } from "svelte-hero-icons";
     import {v4 as uuidv4} from "uuid";
     import ErrorModal from "./ErrorModal.svelte";
+    import CloseInvoiceModal from "./CloseInvoiceModal.svelte";
     import { InvoiceService } from "../generated";
     import {toast} from "@zerodevx/svelte-toast"
     import Loading from "./Loading.svelte";
@@ -372,7 +373,7 @@
             </div>
             <div class="flex justify-end flex-1 space-x-2">
                 <Button
-                    type="button"
+                    type="submit"
                     class="bg-butCol capitalize"
                     on:click={saveDraft}
                 >
