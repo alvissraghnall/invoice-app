@@ -9,7 +9,11 @@
     import { InvoiceService } from "../generated";
     import {toast} from "svelte-french-toast"
     import Loading from "./Loading.svelte";
-
+    import {
+        TransitionChild,
+        TransitionRoot,
+    } from "@rgossiaux/svelte-headlessui";
+  
     let errorModalIsOpen = false;
     let loading = false;
     const dispatch = createEventDispatcher();
@@ -21,7 +25,7 @@
 
     const uploadInvoice = async () => {
         console.log(fields.invoiceItemList.length);
-        if(fields.invoiceItemList.length <= 0) {
+        if(fields.invoiceItemList.length <= 0 || fields.invoiceItemList.some(item => item.itemName === "")) {
             //modal to fill out work items
             errorModalIsOpen = true;
 
@@ -125,9 +129,18 @@
         class="relative p-14 max-w-[44rem] w-full bg-holderColor text-white shadow-xl"
         on:submit|preventDefault={submitForm}
     >
-        {#if loading}
+        <TransitionChild
+            show={loading}
+            as="div" 
+            enter="transition ease-out duration-300" 
+            enterFrom="transform opacity-0"
+            enterTo="transform opacity-100"
+            leave="transition ease-in duration-200" 
+            leaveFrom="transform opacity-100" 
+            leaveTo="transform opacity-0"
+        >
             <Loading />
-        {/if}
+        </TransitionChild>
         <h1 class="font-semibold text-lg mb-12 text-white">New Invoice</h1>
 
         <div class="bill-from mb-12 flex flex-col">
