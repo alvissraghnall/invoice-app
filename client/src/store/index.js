@@ -7,6 +7,7 @@ export const closeModalOpen = writable(false);
 export const invoicesLoading = writable(true);
 
 const getInvoices = InvoiceService.getAllInvoices()
+    .then(console.log)
     .catch((err) => {
         console.error(err);
         return [];

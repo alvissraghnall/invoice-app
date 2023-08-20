@@ -1,12 +1,13 @@
 <script>
   import { invoiceModalOpen } from "./store";
-  import { InvoiceModal, ModalWrapper, Header } from "./components";
+  import { InvoicesLoading, ModalWrapper, Header } from "./components";
   import { Router } from "svelte-router-spa";
   import { routes } from "./routes/router";
   import { onMount } from "svelte";
   import { fly, slide } from "svelte/transition";
   import { quintOut } from "svelte/easing";
   import {Toaster} from "svelte-french-toast"
+  import { invoicesLoading } from "./store";
 
   const closeInvoiceModal = () => {
     invoiceModalOpen.set(false);
@@ -31,35 +32,34 @@
 <svelte:window on:resize={checkScreen} />
 
 <div class="font-poppins">
+
+  {#if $invoicesLoading}
+    <div class="bg-gray-200 w-full min-h-screen flex justify-center items-center">
+      <div class="bg-white p-10 shadow-md rounded-xl relative">
+        <InvoicesLoading />
+      </div>
+    </div>
+  {:else}
+
   {#if !mobile}
     <div class="bg-[#141625] min-h-screen flex-col lg:flex-row flex">
       <Header />
       <div class="py-0 px-5 flex-1 relative flex flex-col">
-        <!-- {#if $invoiceModalOpen} -->
-        <!-- <div out:fly={{
-            duration: 520,
-            opacity: 0.5,
-            // easing: quintOut,
-            x: 250
-          }} in:fly={{
-            x: 250, delay:80, opacity: 0, duration: 444
-          }}>
-            <InvoiceModal on:close={closeInvoiceModal} />
-          </div> -->
         <ModalWrapper />
-        <!-- {/if} -->
         <Router {routes} />
       </div>
     </div>
-  {:else}
-    <div
-      class="text-center place-content-center h-screen bg-holderColor flex flex-col text-white/80 font-poppins"
-    >
-      <h2 class="text-lg font-bold">
-        Sorry, this app is not supported on mobile devices.
-      </h2>
-      <p class="mt-4">To use this app, please use a tablet, or laptop.</p>
-    </div>
+    {:else}
+      <div
+        class="text-center place-content-center h-screen bg-holderColor flex flex-col text-white/80 font-poppins"
+      >
+        <h2 class="text-lg font-bold">
+          Sorry, this app is not supported on mobile devices.
+        </h2>
+        <p class="mt-4">To use this app, please use a tablet, or laptop.</p>
+      </div>
+    {/if}
+  
   {/if}
 </div>
 <Toaster />

@@ -335,7 +335,7 @@
                                 />
                             </td>
                             <td class="flex basis-1/5 self-center mb-5 text-lg">
-                                $ {(item.total = item.qty * item.price)}
+                                $ {(item.total = item.qty * item.price).toFixed(2)}
                             </td>
                             <!-- svelte-ignore a11y-click-events-have-key-events -->
                             <td class="absolute top-2 h-6 w-5 right-0 cursor-pointer" on:click={() => deleteInvoiceItem(item.id)}>

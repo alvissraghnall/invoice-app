@@ -7,9 +7,15 @@
     export let name;
     export { className as class };
     export let labelClassNames;
+    export let step = "0.01";
 
     function typeAction (node) {
-        node.type = type;
+      node.type = type;
+      console.log(node.type);
+
+      if(node.type === "number") {
+        node.step = step;
+      }
     }
 </script>
 
