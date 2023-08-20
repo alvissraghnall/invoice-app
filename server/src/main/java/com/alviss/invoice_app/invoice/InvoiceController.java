@@ -18,7 +18,7 @@ import java.util.List;
 @RestController
 @RequestMapping(value = "/invoice")
 @Tag(name="Invoice", description = "Invoice management APIs")
-//@CrossOrigin(origins = "http://localhost:5000", maxAge = 3600)
+@CrossOrigin(origins = "http://localhost:5000", maxAge = 3600)
 @RequiredArgsConstructor
 public class InvoiceController {
 
