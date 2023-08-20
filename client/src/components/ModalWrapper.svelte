@@ -12,16 +12,16 @@
 
   const toggleInvoiceModal = () => {
     invoiceModalOpen.update((value) => !value);
-    closeModalOpen.set(true);
   };
 
   const closeInvoiceModal = () => {
-    invoiceModalOpen.set(false);
+    closeModalOpen.set(true);
+    // invoiceModalOpen.set(false);
   };
 </script>
 
 <TransitionRoot as="div" show={$invoiceModalOpen}>
-  <Dialog as="div" class="relative z-10" on:close={toggleInvoiceModal}>
+  <Dialog as="div" class="relative z-10" on:close={closeInvoiceModal}>
     <TransitionChild
       as="div"
       enter="transition-opacity ease-in-out duration-300"
@@ -35,7 +35,7 @@
     </TransitionChild>
 
     <div
-      class="fixed inset-0 ml-20 max-w-max overflow-y-auto my-auto h-max shadow-xl rounded-2xl"
+      class="fixed inset-0 ml-16 max-w-max overflow-y-auto my-auto h-max shadow-xl rounded-2xl"
     >
       <div class="flex min-h-full items-center justify-center">
         <TransitionChild

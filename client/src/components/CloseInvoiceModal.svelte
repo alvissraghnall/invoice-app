@@ -9,15 +9,19 @@ import {
 
 const closeModal = () => {
     closeModalOpen.set(false);
+    console.log("attmpt to close modal");
 }
 
 const closeInvoice = () => {
     closeModal();
+    console.log("closed")
     invoiceModalOpen.set(false);
 }
+
+export let isOpen;
 </script>
 
-<Modal isOpen{$closeModalOpen} on:close>
+<Modal {isOpen} on:close>
     <!-- <div class=""> -->
         <p class="text-center">Are you sure you want to exit? You will lose all changes, as they won't be saved!</p>
 

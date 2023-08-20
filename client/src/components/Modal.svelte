@@ -21,7 +21,6 @@ const closeModal = (ev) => {
 <Transition
     show={isOpen}
     as="div" 
-    
 >
     <Dialog
         class="relative z-50 font-poppins"
@@ -39,7 +38,7 @@ const closeModal = (ev) => {
             <DialogOverlay class="fixed inset-0 bg-gray-500 bg-opacity-75" />
         </TransitionChild>
 
-        <div class="fixed inset-0 overflow-y-auto max-w-sm bg-white mx-auto my-auto h-max shadow-xl rounded-2xl">
+        <div class="fixed inset-0 overflow-y-auto max-w-sm mx-auto my-auto h-max shadow-xl rounded-2xl">
             <div class="flex min-h-full items-center justify-center text-center">
 
                 <TransitionChild
@@ -51,7 +50,7 @@ const closeModal = (ev) => {
                     leaveFrom="transform scale-100 opacity-100" 
                     leaveTo="transform scale-90 opacity-0"
                 >
-                    <div class="w-full max-w-md transform overflow-hidden rounded-2xl text-white bg-butCol py-12 px-8 align-middle shadow-xl transition-all">
+                    <div class="w-full max-w-md overflow-hidden rounded-2xl text-white bg-butCol py-12 px-8 align-middle shadow-xl">
                         <slot />
                     </div>
                 </TransitionChild>

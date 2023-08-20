@@ -1,4 +1,5 @@
 <script>
+    import { closeModalOpen } from "../store";
     import { onMount, createEventDispatcher, } from "svelte";
     import { Button, Input, Select } from "./shared";
     import { Icon, Trash, Plus } from "svelte-hero-icons";
@@ -6,11 +7,10 @@
     import ErrorModal from "./ErrorModal.svelte";
     import CloseInvoiceModal from "./CloseInvoiceModal.svelte";
     import { InvoiceService } from "../generated";
-    import {toast} from "@zerodevx/svelte-toast"
+    import {toast} from "svelte-french-toast"
     import Loading from "./Loading.svelte";
 
     let errorModalIsOpen = false;
-    let closeInvoiceModalIsOpen = false;
     let loading = false;
     const dispatch = createEventDispatcher();
 
@@ -32,20 +32,17 @@
         InvoiceService.createInvoice(
             fields
         ).then(() => {
-            toast.push("Invoice successfully created!", {
-                 theme: {
-                    '--toastBackground': 'green',
-                    '--toastColor': 'white',
-                }
-            })
+            toast.success("Invoice successfully created!", {
+                style: 'border-radius: 120px; background-color: #4caf50; color: #fff;',
+                icon: '👏',
+            });
         }).catch(
             err => {
                 console.error(err, err.body);
-                toast.push("Invoice creation failed!", {
-                    theme: {
-                        '--toastBackground': 'red',
-                    }
-                })
+                toast.error("Invoice creation failed!", {
+                    style: 'border-radius: 120px; background: #333; color: #fff;',
+                    icon: '👏',
+                });
             }
         ).finally(() => {
             loading = false;
@@ -402,8 +399,8 @@
 </ErrorModal>
 
 <CloseInvoiceModal
-    isOpen={closeInvoiceModalIsOpen}
-    on:close={() => (closeInvoiceModalIsOpen = false)}
+    isOpen={$closeModalOpen}
+    on:close={() => closeModalOpen.set(false)}
 />
 
 <style>
