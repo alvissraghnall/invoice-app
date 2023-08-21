@@ -71,11 +71,10 @@
     }
 
     const createInvoice = (ev) => {
-        fields.pending = true;
     };
 
     const saveDraft = (ev) => {
-        fields.invoiceDraft = true;
+        fields.status = "DRAFT";
     };
 
     const addNewInvoiceItem = (ev) => {
@@ -116,8 +115,7 @@
         paymentTerms: null,
         paymentDueDate: null,
         productDesc: "",
-        pending: null,
-        invoiceDraft: null,
+        status: null,
         invoiceItemList: [],
     };
 </script>

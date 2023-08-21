@@ -1,5 +1,5 @@
 
-<div class="text-white/90 w-full max-w-[53rem] py-10 px-2.5 my-0 mx-auto lg:pt-20">
+<div class="text-white/90 w-full max-w-[53rem] py-10 px-2.5 my-0 mx-auto lg:pt-20 font-poppins">
     <div class="mb-16 flex">
         <div class="flex flex-col flex-1">
             <h1 class="font-bold text-2xl">Invoices</h1>
@@ -8,7 +8,7 @@
         <div class="flex flex-1 justify-end items-center">
             <button on:click={toggleFilterMenu} class="filter relative mr-10 flex outline-none focus:outline-none border-none items-center cursor-pointer">
                 <span class="text-xs font-medium">Filter by status</span>
-                <span class="ml-3 w-4 h-4 ">
+                <span class="ml-3 w-4 h-4">
                     <Icon src={ArrowDown} />
                 </span>
                 {#if filterMenu}
@@ -27,10 +27,26 @@
             </button>
         </div>
     </div>
+
+    <!-- invoices -->
+    {#if !$invoices}
+        {#each $invoices as invoice, index (invoice.id)}
+            <Invoice {invoice} />
+        {/each}
+    {:else}
+        <div class="flex flex-col mt-20 items-center">
+            <img class="w-52 h-48" src="assets/illustration-empty.svg" alt="" />
+            <h3 class="text-2xl mt-10">There is nothing here!</h3>
+            <p class="text-center text-sm max-w-xs font-light mt-4">Create a new invoice by clicking the "Add New Invoice" button and get started. </p>
+        </div>
+    {/if}
+    
 </div>
 
 
 <script>
+    import { invoices } from "../store";
+    import { Invoice } from "../components";
     import { invoiceModalOpen } from "../store";
     import {Icon, ArrowDown, PlusCircle} from "svelte-hero-icons";
     let invoiceNumber = 6;

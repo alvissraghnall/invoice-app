@@ -34,14 +34,14 @@
 <div class="font-poppins">
 
   {#if $invoicesLoading}
-    <div class="bg-gray-200 w-full min-h-screen flex justify-center items-center">
-      <div class="bg-white p-10 shadow-md rounded-xl relative">
+    <div class="bg-butCol/80 w-full min-h-screen flex justify-center items-center">
+      <div class="bg-butCol/50 p-10 shadow-md rounded-xl relative">
         <InvoicesLoading />
       </div>
     </div>
   {:else}
 
-  {#if !mobile}
+    {#if !mobile}
     <div class="bg-[#141625] min-h-screen flex-col lg:flex-row flex">
       <Header />
       <div class="py-0 px-5 flex-1 relative flex flex-col">
