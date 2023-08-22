@@ -29,7 +29,7 @@
     </div>
 
     <!-- invoices -->
-    {#if !$invoices}
+    {#if $invoices}
         {#each $invoices as invoice, index (invoice.id)}
             <Invoice {invoice} />
         {/each}

@@ -1,5 +1,5 @@
 <script>
-import { closeModalOpen, invoiceModalOpen } from "../store";
+import { closeModalOpen, editInvoice, invoiceModalOpen } from "../store";
 import Modal from "./Modal.svelte";
 import { Button } from "./shared";
 import { 
@@ -16,6 +16,7 @@ const closeInvoice = () => {
     closeModal();
     console.log("closed")
     invoiceModalOpen.set(false);
+    if($editInvoice) editInvoice.set(false);
 }
 
 export let isOpen;

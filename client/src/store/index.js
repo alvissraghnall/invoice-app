@@ -6,8 +6,11 @@ export const closeModalOpen = writable(false);
 
 export const invoicesLoading = writable(true);
 
-const getInvoices = InvoiceService.getAllInvoices()
-    .then(console.log)
+const getInvoices = async () => InvoiceService.getAllInvoices()
+    .then(res => {
+        console.log(res);
+        return res;
+    })
     .catch((err) => {
         console.error(err);
         return [];
@@ -15,4 +18,9 @@ const getInvoices = InvoiceService.getAllInvoices()
         invoicesLoading.set(false);
     });
 
-export const invoices = readable(getInvoices);
+export const invoices = readable(await getInvoices());
+
+export const editInvoice = writable(false);
+
+export const currentInvoice = writable({});
+

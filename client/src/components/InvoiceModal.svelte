@@ -1,5 +1,5 @@
 <script>
-    import { closeModalOpen } from "../store";
+    import { closeModalOpen, editInvoice } from "../store";
     import { onMount, createEventDispatcher, } from "svelte";
     import { Button, Input, Select } from "./shared";
     import { Icon, Trash, Plus } from "svelte-hero-icons";
@@ -61,6 +61,8 @@
 
     const closeInvoice = (ev) => {
         dispatch('close');
+        if($editInvoice) editInvoice.set(false);
+
     };
 
     const setPaymentDueDate = (payTerms) => {
@@ -96,8 +98,10 @@
 
     onMount(() => {
         console.log(fields.invoiceDate);
-        // fields.invoiceDate = new Date();
-        // fields.paymentDueDate = null;
+        
+        if ($editInvoice) {
+            
+        }
     });
 
     const fields = {
@@ -139,7 +143,14 @@
         >
             <Loading />
         </TransitionChild>
-        <h1 class="font-semibold text-lg mb-12 text-white">New Invoice</h1>
+        <h1 class="font-semibold text-lg mb-12 text-white">
+            {#if $editInvoice}
+                Edit
+            {:else}
+                New
+            {/if}
+             Invoice
+        </h1>
 
         <div class="bill-from mb-12 flex flex-col">
             <h4 class="text-purple-800">Bill From</h4>
@@ -381,13 +392,14 @@
                 </Button>
             </div>
             <div class="flex justify-end flex-1 space-x-2">
-                <Button
-                    type="submit"
-                    class="bg-butCol capitalize"
-                    on:click={saveDraft}
-                >
-                    save draft
-                </Button>
+                {#if $editInvoice}
+                    <Button
+                        type="submit"
+                        class="bg-butCol capitalize"
+                        on:click={saveDraft}
+                    >
+                        save draft
+                    </Button>
                 <Button
                     type="submit"
                     class="bg-purple-900 capitalize"
@@ -395,6 +407,16 @@
                 >
                     Create Invoice
                 </Button>
+                {:else}
+                    <Button
+                        type="submit"
+                        class="bg-purple-900 capitalize"
+                    >
+                        Update Invoice
+                    </Button>
+                    
+                {/if}
+                
             </div>
         </div>
     </form>
