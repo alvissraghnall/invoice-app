@@ -17,7 +17,7 @@
     );
 
     const toggleEditInvoice = () => {
-        $editInvoice.update(v => !v);
+        editInvoice.update(v => !v);
     }
 
     const deleteInvoice = () => {

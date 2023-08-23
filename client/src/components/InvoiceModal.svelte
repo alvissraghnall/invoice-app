@@ -1,5 +1,5 @@
 <script>
-    import { closeModalOpen, editInvoice } from "../store";
+    import { closeModalOpen, currentInvoice, editInvoice } from "../store";
     import { onMount, createEventDispatcher, } from "svelte";
     import { Button, Input, Select } from "./shared";
     import { Icon, Trash, Plus } from "svelte-hero-icons";
@@ -20,7 +20,11 @@
 
     const submitForm = (ev) => {
         console.log(fields);
-        uploadInvoice();
+        if ($editInvoice) {
+            //update invoice
+        } else {
+            uploadInvoice();
+        }
     };
 
     const uploadInvoice = async () => {
@@ -100,11 +104,11 @@
         console.log(fields.invoiceDate);
         
         if ($editInvoice) {
-            
+            fields = $currentInvoice
         }
     });
 
-    const fields = {
+    let fields = {
         billerStreetAddress: "",
         billerCity: "",
         billerZipCode: "",
