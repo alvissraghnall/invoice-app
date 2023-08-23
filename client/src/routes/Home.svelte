@@ -29,10 +29,17 @@
     </div>
 
     <!-- invoices -->
+    
     {#if $invoices}
-        {#each $invoices as invoice, index (invoice.id)}
-            <Invoice {invoice} />
-        {/each}
+        <!-- {#await $invoices then value} -->
+            
+            {#each $invoices as invoice, index (invoice.id)}
+                <Invoice {invoice} />
+            {/each}
+
+            <!-- {:catch error} -->
+                <!-- <span class="sr-only">No invoices</span> -->
+        <!-- {/await} -->
     {:else}
         <div class="flex flex-col mt-20 items-center">
             <img class="w-52 h-48" src="assets/illustration-empty.svg" alt="" />
@@ -45,10 +52,12 @@
 
 
 <script>
-    import { invoices } from "../store";
+    import { invoices, invoicesLoading } from "../store";
     import { Invoice } from "../components";
     import { invoiceModalOpen } from "../store";
     import {Icon, ArrowDown, PlusCircle} from "svelte-hero-icons";
+    import { onMount } from "svelte";
+    import { InvoiceService } from "../generated";
     let invoiceNumber = 6;
     let filterMenu = false;
     // const newInvoice = ev => {
@@ -66,6 +75,23 @@
         "clear filter",
         "paid",
         "pending"
-    ]
+    ];
+
+    onMount(async () => {
+        console.log("men mnt");
+        const getInvoices = await InvoiceService.getAllInvoices()
+            .then(res => {
+                console.log(res);
+                return res;
+            })
+            .catch((err) => {
+                console.error(err);
+                return [];
+            }).finally(() => {
+                invoicesLoading.set(false);
+            });
+
+        invoices.set(getInvoices);
+    })
 </script>
 

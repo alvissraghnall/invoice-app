@@ -102,6 +102,7 @@
 
     onMount(() => {
         console.log(fields.invoiceDate);
+        console.log(loading)
         
         if ($editInvoice) {
             fields = $currentInvoice
@@ -135,18 +136,21 @@
         class="relative p-14 max-w-[44rem] w-full bg-holderColor text-white shadow-xl"
         on:submit|preventDefault={submitForm}
     >
-        <TransitionChild
-            show={loading}
-            as="div" 
-            enter="transition ease-out duration-300" 
-            enterFrom="transform opacity-0"
-            enterTo="transform opacity-100"
-            leave="transition ease-in duration-200" 
-            leaveFrom="transform opacity-100" 
-            leaveTo="transform opacity-0"
-        >
-            <Loading />
-        </TransitionChild>
+        {#if loading}
+            <TransitionChild
+                show={loading}
+                as="div" 
+                enter="transition ease-out duration-300" 
+                enterFrom="transform opacity-0"
+                enterTo="transform opacity-100"
+                leave="transition ease-in duration-200" 
+                leaveFrom="transform opacity-100" 
+                leaveTo="transform opacity-0"
+            >
+                <Loading />
+            </TransitionChild>
+        {/if}
+        
         <h1 class="font-semibold text-lg mb-12 text-white">
             {#if $editInvoice}
                 Edit
@@ -396,7 +400,7 @@
                 </Button>
             </div>
             <div class="flex justify-end flex-1 space-x-2">
-                {#if $editInvoice}
+                {#if !$editInvoice}
                     <Button
                         type="submit"
                         class="bg-butCol capitalize"
