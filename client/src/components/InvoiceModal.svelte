@@ -66,7 +66,7 @@
     const closeInvoice = (ev) => {
         dispatch('close');
         if($editInvoice) editInvoice.set(false);
-
+        console.log('closed');
     };
 
     const setPaymentDueDate = (payTerms) => {
@@ -286,10 +286,10 @@
                         name="invoiceDate" 
                         label="Invoice Date"
                         disabled 
-                        value={fields.invoiceDate.toLocaleDateString("en-us", {
+                        value={fields.invoiceDate?.toLocaleDateString("en-us", {
                             year: "numeric", month: "short",
                             day: "numeric"
-                        })}
+                        }) ?? ''}
                     />
                 </div>
                 <div class="input flex flex-col mb-6 flex-1">

@@ -1,6 +1,6 @@
 <script>
     import { Navigate } from "svelte-router-spa";
-    import { currentInvoice, editInvoice, invoices, invoicesLoading } from "../store";
+    import { currentInvoice, editInvoice, invoiceModalOpen, invoices, invoicesLoading } from "../store";
     import { ChevronLeft, Icon, Pencil, Trash } from "svelte-hero-icons";
     import { Button, InvoiceStatus } from "../components/shared";
     import { onMount } from "svelte";
@@ -15,6 +15,10 @@
 
     const toggleEditInvoice = () => {
         editInvoice.update(v => !v);
+        invoiceModalOpen.set(true);
+        console.log('wk');
+
+        console.log($invoiceModalOpen, $editInvoice);
     }
 
     const deleteInvoice = () => {
@@ -28,38 +32,43 @@
             invoiceId,
             inv
         ).then(() => {
-            
+            invoice.status = inv.status;
             toast.success("Successfully marked as Completed!");
+        }).catch(err => {
+            toast.error(err?.body?.message, {
+                className: 'bg-butCol'
+            });
         });
     }
 
+    //:: Start Responsive design immediately !!!!!!!!
+
     invoicesLoading.set(true);
 
-    const fetchInvoices = async () => {
-        const getInvoices = await InvoiceService.getAllInvoices()
-            .then(res => {
+    const fetchInvoice = async (id) => {
+        const getInvoice = await InvoiceService.getInvoice(
+            id
+        ).then(res => {
                 console.log(res);
                 return res;
             })
-            .catch((err) => {
-                console.error(err);
-                return [];
-            })
-            .finally(() => {
-                invoicesLoading.set(false);
-            });
+        .catch((err) => {
+            console.error(err);
+            return {};
+        })
+        .finally(() => {
+            invoicesLoading.set(false);
+        });
 
-        invoices.set(getInvoices);
+        return getInvoice;
     }
 
     onMount(async () => {
         console.log("men mnt");
-        await fetchInvoices();
+        
         console.log(currentRoute);
 
-        invoice = $invoices.find(
-            inv => inv.id === invoiceId
-        );
+        invoice = await fetchInvoice(invoiceId);
 
         invoiceTotal = invoice?.invoiceItemList?.reduce(
             (acc, curr) => acc += (curr.qty * curr.price), 0
@@ -124,7 +133,7 @@
 
             <div class="flex flex-col rounded-3xl bg-regColor p-12 mt-6">
                 <div class="flex">
-                    <div class="text-[#dfe3fa] flex-1 flex text-xs flex-col">
+                    <div class="text-[#dfe3fa] flex-[2] flex text-xs flex-col">
                         <p class="text-2xl uppercase text-white mb-2"><span class="text-[#888eb0]">#</span> {invoice.id} </p>
                         <p class="text-base"> { invoice.productDesc ?? '' } </p>
                     </div>
@@ -204,5 +213,7 @@
                 </div>
             </div>
         </div>
+        {:else}
+            <!-- 404 content -->
     {/if}
 {/if}

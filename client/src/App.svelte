@@ -33,38 +33,25 @@
 <svelte:window on:resize={checkScreen} />
 
 <div class="font-poppins">
-  
-  <Router {routes}>
-
   {#if $invoicesLoading}
     <div class="bg-butCol/80 w-full min-h-screen flex justify-center items-center">
-      <div class="bg-butCol/50 p-10 shadow-md rounded-xl relative">
+      <div class="bg-butCol/50 p-10 shadow-md rounded-xl relative z-[808]">
         <InvoicesLoading />
       </div>
     </div>
-  {:else}
+    {/if}
+  <!-- {:else} -->
 
-    <!-- {#if !mobile} -->
     <div class="bg-[#141625] min-h-screen flex-col lg:flex-row flex">
       <Header />
       <div class="py-0 px-5 flex-1 relative flex flex-col">
         <ModalWrapper />
-
+        <Router {routes} />
       </div>
     </div>
-    <!-- {:else}
-      <div
-        class="text-center place-content-center h-screen bg-holderColor flex flex-col text-white/80 font-poppins"
-      >
-        <h2 class="text-lg font-bold">
-          Sorry, this app is not supported on mobile devices.
-        </h2>
-        <p class="mt-4">To use this app, please use a tablet, or laptop.</p>
-      </div>
-    {/if} -->
   
-  {/if}
-  </Router>
+  <!-- {/if} -->
+  <!-- </Router> -->
 </div>
 <Toaster />
 
