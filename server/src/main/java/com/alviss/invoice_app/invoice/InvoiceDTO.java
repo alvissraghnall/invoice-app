@@ -8,9 +8,13 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.validation.Valid;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
-import java.util.Date;
+
+import java.time.LocalDate;
+import java.time.ZoneId;
+// import java.util.Date;
 import java.util.List;
 
 @AllArgsConstructor
@@ -21,31 +25,44 @@ public class InvoiceDTO {
 
     private String id;
 
+    @NotBlank(message = "Biller Street Address must be provided!")
     private String billerStreetAddress;
 
+    @NotBlank(message = "Biller City must be provided!")
     private String billerCity;
 
+    @NotNull(message = "Biller Zip Code must be provided!")
     private int billerZipCode;
 
+    @NotBlank(message = "Biller Country must be provided!")
     private String billerCountry;
 
+    @NotBlank(message = "Client Name must be provided!")
     private String clientName;
 
+    @NotBlank(message = "Client Street Address must be provided!")
     private String clientStreetAddress;
 
+    @NotBlank(message = "Client Email must be provided!")
     private String clientEmail;
 
+    @NotBlank(message = "Client City must be provided!")
     private String clientCity;
 
+    @NotNull(message = "Client Zip Code must be provided!")
     private int clientZipCode;
 
+    @NotBlank(message = "Client Country must be provided!")
     private String clientCountry;
 
-    private Date invoiceDate;
+    private LocalDate invoiceDate = LocalDate.now(
+        ZoneId.of("Africa/Lagos")
+    );
 
+    @NotNull(message = "Payment Terms must be provided!")
     private int paymentTerms;
 
-    private Date paymentDueDate;
+    private LocalDate paymentDueDate;
 
     private String productDesc;
 

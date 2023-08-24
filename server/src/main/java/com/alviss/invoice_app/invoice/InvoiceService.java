@@ -3,6 +3,7 @@ package com.alviss.invoice_app.invoice;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.time.Period;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -15,8 +16,13 @@ public class InvoiceService {
     InvoiceDTO createInvoice (InvoiceDTO invoiceDTO) {
         final Invoice invoice = new Invoice();
         mapToEntity(invoiceDTO, invoice);
+        invoice.setPaymentDueDate(invoiceDTO.getInvoiceDate().plus(
+            Period.ofDays(invoiceDTO.getPaymentTerms())
+        ));
         Invoice savedInvoice = invoiceRepository.save(invoice);
 
+        System.out.println(savedInvoice.getPaymentDueDate().plusDays(22));
+        
         return mapToDTO(savedInvoice, new InvoiceDTO());
     }
 
@@ -39,18 +45,23 @@ public class InvoiceService {
         return mapToDTO(invoiceRepository.save(invoice), new InvoiceDTO());
     }
 
+    void deleteInvoice (final String id) {
+        invoiceRepository.deleteById(id);
+    }
+
     private Invoice mapToEntity(final InvoiceDTO invoiceDTO, final Invoice invoice) {
         invoice.setId(invoiceDTO.getId());
         invoice.setBillerCity(invoiceDTO.getBillerCity());
         invoice.setBillerCountry(invoiceDTO.getBillerCountry());
-        invoice.setBillerCity(invoiceDTO.getBillerCity());
         invoice.setBillerZipCode(invoiceDTO.getBillerZipCode());
+        invoice.setBillerStreetAddress(invoiceDTO.getBillerStreetAddress());
         invoice.setClientCity(invoiceDTO.getClientCity());
         invoice.setClientCountry(invoiceDTO.getClientCountry());
-        invoice.setClientCity(invoiceDTO.getClientCity());
+        invoice.setClientStreetAddress(invoiceDTO.getClientStreetAddress());
         invoice.setClientZipCode(invoiceDTO.getClientZipCode());
         invoice.setClientEmail(invoiceDTO.getClientEmail());
         invoice.setClientName(invoiceDTO.getClientName());
+        invoice.setProductDesc(invoiceDTO.getProductDesc());
 
         invoice.setStatus(InvoiceStatus.valueOf(invoiceDTO.getStatus()));
         invoice.setInvoiceDate(invoiceDTO.getInvoiceDate());
@@ -61,7 +72,6 @@ public class InvoiceService {
         );
         invoice.setPaymentDueDate(invoiceDTO.getPaymentDueDate());
         invoice.setPaymentTerms(invoiceDTO.getPaymentTerms());
-        invoice.setPaymentDueDate(invoiceDTO.getPaymentDueDate());
         return invoice;
     }
 
@@ -70,14 +80,15 @@ public class InvoiceService {
         invoiceDTO.setBillerCountry(invoice.getBillerCountry());
         invoiceDTO.setBillerCity(invoice.getBillerCity());
         invoiceDTO.setBillerZipCode(invoice.getBillerZipCode());
-        invoiceDTO.setBillerCity(invoice.getBillerCity());
+        invoiceDTO.setBillerStreetAddress(invoice.getBillerStreetAddress());
         invoiceDTO.setClientCity(invoice.getClientCity());
         invoiceDTO.setClientCountry(invoice.getClientCountry());
-        invoiceDTO.setClientCity(invoice.getClientCity());
         invoiceDTO.setClientZipCode(invoice.getClientZipCode());
+        invoiceDTO.setClientStreetAddress(invoice.getClientStreetAddress());
         invoiceDTO.setClientEmail(invoice.getClientEmail());
         invoiceDTO.setClientName(invoice.getClientName());
 
+        invoiceDTO.setProductDesc(invoice.getProductDesc());
         invoiceDTO.setStatus(invoice.getStatus().toString());
         invoiceDTO.setInvoiceDate(invoice.getInvoiceDate());
         invoiceDTO.setInvoiceItemList(
@@ -85,7 +96,6 @@ public class InvoiceService {
                 item -> mapInvoiceItemToDTO(item, new InvoiceItemDTO())
             ).collect(Collectors.toList())
         );
-        invoiceDTO.setPaymentDueDate(invoice.getPaymentDueDate());
         invoiceDTO.setPaymentTerms(invoice.getPaymentTerms());
         invoiceDTO.setPaymentDueDate(invoice.getPaymentDueDate());
         return invoiceDTO;

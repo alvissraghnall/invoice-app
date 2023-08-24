@@ -6,7 +6,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.List;
 
 @Document
@@ -37,12 +37,12 @@ public class Invoice {
     private int clientZipCode;
 
     private String clientCountry;
-
-    private Date invoiceDate;
-
+    
     private int paymentTerms;
 
-    private Date paymentDueDate;
+    private LocalDate invoiceDate;
+
+    private LocalDate paymentDueDate;
 
     private String productDesc;
 

@@ -10,5 +10,5 @@ public interface InvoiceRepository extends MongoRepository<Invoice, String> {
 
 //    public Optional<Invoice> findInvoiceById(final String id);
 
-    public Optional<Invoice> removeById();
+    // public Optional<Invoice> removeById(final String id);
 }

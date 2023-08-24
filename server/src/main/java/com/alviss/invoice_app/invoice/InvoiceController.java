@@ -18,7 +18,7 @@ import java.util.List;
 @RestController
 @RequestMapping(value = "/invoice")
 @Tag(name="Invoice", description = "Invoice management APIs")
-@CrossOrigin(origins = "http://localhost:5000", maxAge = 3600)
+// @CrossOrigin(origins = "http://localhost:5000", maxAge = 3600)
 @RequiredArgsConstructor
 public class InvoiceController {
 
@@ -76,6 +76,23 @@ public class InvoiceController {
         );
         return ResponseEntity.noContent().build();
     }
+
+    @Operation(
+        summary = "Deletes an invoice",
+        description = "Deletes an invoice via specified ID provided in path as variable.",
+        tags = { "invoice", "delete" }
+    )
+    @DeleteMapping("/{id}")
+    @ApiResponse(description = "Deletes an invoice item", responseCode = "204")
+    public ResponseEntity<?> removeById (
+            @PathVariable String id
+    ) {
+        invoiceService.deleteInvoice(
+            id
+        );
+        return ResponseEntity.noContent().build();
+    }
+    
 
     private String getAppURL (final HttpServletRequest req) {
         return "http://" + req.getServerName() + ":" + req.getServerPort() + req.getContextPath();
