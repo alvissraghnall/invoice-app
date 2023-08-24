@@ -5,3 +5,4 @@ example/public/*
 !example/public/global.css
 *.log
 public/build
+src/generated
