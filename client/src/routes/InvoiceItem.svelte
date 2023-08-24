@@ -33,7 +33,10 @@
             inv
         ).then(() => {
             invoice.status = inv.status;
-            toast.success("Successfully marked as Completed!");
+            toast.success("Successfully marked as Completed!", {
+                icon: '👏',
+                style: 'border-radius: 120px; color: #fff; background-color: #4caf50;'
+            });
         }).catch(err => {
             toast.error(err?.body?.message, {
                 className: 'bg-butCol'
@@ -70,6 +73,8 @@
 
         invoice = await fetchInvoice(invoiceId);
 
+        console.log(invoice);
+
         invoiceTotal = invoice?.invoiceItemList?.reduce(
             (acc, curr) => acc += (curr.qty * curr.price), 0
         ) ?? 0;
@@ -86,7 +91,7 @@
       </div>
     </div>
   {:else}
-    {#if invoice}
+    {#if Object.keys($currentInvoice).length !== 0}
         <div class="m-6 p-4 mx-auto w-full max-md:mx-auto max-md:m-3 lg:max-w-3xl">
             <Navigate to="/" styles="flex mb-8 items-center text-white text-sm ml-2">
                 <span class="w-3 h-3 inline-block mr-2 text-base font-semibold"><Icon src={ChevronLeft}  /></span>
@@ -97,7 +102,7 @@
                 <div class="flex items-center">
                     <span class="text-[#dfe3fa] mr-4">Status</span>
                     <InvoiceStatus
-                        status={invoice.status}
+                        status={$currentInvoice.status}
                     />
                 </div>
 
@@ -120,7 +125,7 @@
                         </span>
                     </Button>
                     
-                    {#if invoice.status !== 'COMPLETED'}
+                    {#if $currentInvoice.status !== 'COMPLETED'}
                         <Button
                             class="bg-green-700 text-white"
                             on:click={updateStatus}>
@@ -134,15 +139,15 @@
             <div class="flex flex-col rounded-3xl bg-regColor p-12 mt-6">
                 <div class="flex">
                     <div class="text-[#dfe3fa] flex-[2] flex text-xs flex-col">
-                        <p class="text-2xl uppercase text-white mb-2"><span class="text-[#888eb0]">#</span> {invoice.id} </p>
-                        <p class="text-base"> { invoice.productDesc ?? '' } </p>
+                        <p class="text-2xl uppercase text-white mb-2"><span class="text-[#888eb0]">#</span> {$currentInvoice.id} </p>
+                        <p class="text-base"> { $currentInvoice.productDesc ?? '' } </p>
                     </div>
 
                     <div class="text-[#dfe3fa] flex-1 flex flex-col text-xs items-end">
-                        <p> {invoice.billerStreetAddress ?? ''} </p>
-                        <p> {invoice.billerCity} </p>
-                        <p> { invoice.billerZipCode } </p>
-                        <p> { invoice.billerCountry } </p>
+                        <p> {$currentInvoice.billerStreetAddress ?? ''} </p>
+                        <p> {$currentInvoice.billerCity ?? ''} </p>
+                        <p> { $currentInvoice.billerZipCode  ?? 0 } </p>
+                        <p> { $currentInvoice.billerCountry  ?? '' } </p>
                     </div>
                 </div>
 
@@ -151,16 +156,16 @@
                         <h4 class="text-xs font-normal mb-3">Invoice Date</h4>
 
                         <p class="text-base font-semibold"> 
-                            {invoice.invoiceDate ? new Date(invoice.invoiceDate).toLocaleDateString("en-us", {
+                            {($currentInvoice.invoiceDate ? new Date($currentInvoice.invoiceDate) : new Date()).toLocaleDateString("en-us", {
                                 year: "numeric", month: "short",
                                 day: "numeric"
-                            }) : ''}    
+                            })}    
                         </p>
 
                         <h4 class="text-xs font-normal mb-3 mt-8"> Payment Date </h4>
 
                         <p class="text-base font-semibold"> 
-                            {invoice.paymentDueDate ? new Date(invoice.paymentDueDate).toLocaleDateString("en-us", {
+                            {$currentInvoice.paymentDueDate ? new Date($currentInvoice.paymentDueDate).toLocaleDateString("en-us", {
                                 year: "numeric", month: "short",
                                 day: "numeric"
                             }) : ''} 
@@ -171,17 +176,17 @@
                     <div class="flex-1 flex-col flex">
                         <h4 class="text-xs font-normal mb-3">Bill To </h4>
                         
-                        <p class="text-base"> {invoice.clientName} </p>
-                        <p class="text-xs mt-auto"> {invoice.clientStreetAddress ?? ''} </p>
-                        <p class="text-xs"> {invoice.clientCity} </p>
-                        <p class="text-xs"> { invoice.clientZipCode } </p>
-                        <p class="text-xs"> { invoice.clientCountry } </p>
+                        <p class="text-base"> {$currentInvoice.clientName  ?? ''} </p>
+                        <p class="text-xs mt-auto"> {$currentInvoice.clientStreetAddress ?? ''} </p>
+                        <p class="text-xs"> {$currentInvoice.clientCity  ?? ''} </p>
+                        <p class="text-xs"> { $currentInvoice.clientZipCode ?? ''} </p>
+                        <p class="text-xs"> { $currentInvoice.clientCountry ?? ''} </p>
                     
                     </div>
 
                     <div class="flex-[2] flex flex-col">
                         <h4 class="text-xs font-normal mb-3">Sent To</h4>
-                        <p class="text-base"> {invoice.clientEmail} </p>
+                        <p class="text-base"> {$currentInvoice.clientEmail  ?? ''} </p>
 
                     </div>
                 </div>
@@ -195,7 +200,7 @@
                             <p class="flex-1 text-right">Total</p>
                         </div>
 
-                        {#each invoice.invoiceItemList as item}
+                        {#each $currentInvoice.invoiceItemList as item}
                             <div class="flex mb-8 text-sm text-white last:mb-0">
 
                                 <p class="flex-[3] text-left">{item.itemName}</p>

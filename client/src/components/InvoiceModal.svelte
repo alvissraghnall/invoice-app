@@ -1,5 +1,5 @@
 <script>
-    import { closeModalOpen, currentInvoice, editInvoice } from "../store";
+    import { closeModalOpen, currentInvoice, editInvoice, invoiceModalOpen } from "../store";
     import { onMount, createEventDispatcher, } from "svelte";
     import { Button, Input, Select } from "./shared";
     import { Icon, Trash, Plus } from "svelte-hero-icons";
@@ -21,7 +21,7 @@
     const submitForm = (ev) => {
         console.log(fields);
         if ($editInvoice) {
-            //update invoice
+            updateInvoice();
         } else {
             uploadInvoice();
         }
@@ -50,6 +50,39 @@
                 toast.error("Invoice creation failed!", {
                     style: 'border-radius: 120px; background: #333; color: #fff;',
                     icon: '👏',
+                });
+            }
+        ).finally(() => {
+            loading = false;
+        });
+    }
+
+    const updateInvoice = async () => {
+        if(fields.invoiceItemList.length <= 0 || fields.invoiceItemList.some(item => item.itemName === "")) {
+            //modal to fill out work items
+            errorModalIsOpen = true;
+
+            return;
+        }
+        loading = true;
+
+        await InvoiceService.replaceById(
+            $currentInvoice.id,
+            fields
+        ).then(() => {
+            toast.success("Invoice successfully updated!", {
+                style: 'border-radius: 120px; background-color: #4caf50; color: #fff;',
+                icon: '👏',
+            });
+            editInvoice.set(false);
+            currentInvoice.set(fields);
+            invoiceModalOpen.set(false);
+        }).catch(
+            err => {
+                console.error(err, err.body);
+                toast.error("Invoice updation failed!", {
+                    style: 'border-radius: 120px; background: #333; color: #fff;',
+                    // icon: '👏',
                 });
             }
         ).finally(() => {
