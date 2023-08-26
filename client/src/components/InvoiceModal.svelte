@@ -173,7 +173,7 @@
 </script>
 
 <div
-    class="invoice-wrap left-0 bg-transparent h-screen overflow-y-scroll [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none] lg:left-[5.62rem] w-full flex flex-col"
+    class="left-0 bg-transparent h-screen overflow-y-scroll [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none] lg:left-[5.62rem] w-full flex flex-col"
 >
     <form
         class="relative p-14 max-w-[44rem] w-full bg-holderColor text-white shadow-xl"
@@ -502,8 +502,3 @@
     on:close={() => closeModalOpen.set(false)}
 />
 
-<style>
-    .invoice-wrap::-webkit-scrollbar {
-        display: none;
-    }
-</style>
