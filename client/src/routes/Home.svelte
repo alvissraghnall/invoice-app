@@ -3,7 +3,7 @@
     <div class="mb-16 flex">
         <div class="flex flex-col flex-1">
             <h1 class="font-bold text-2xl">Invoices</h1>
-            <span class="text-sm mt-1">There are {invoiceNumber} total invoices </span>
+            <span class="text-sm mt-1">There are {$invoices.length} total invoices </span>
         </div>
         <div class="flex flex-1 justify-end items-center">
             <button on:click={toggleFilterMenu} class="filter relative mr-10 flex outline-none focus:outline-none border-none items-center cursor-pointer">
@@ -58,7 +58,7 @@
     import {Icon, ArrowDown, PlusCircle} from "svelte-hero-icons";
     import { onMount } from "svelte";
     import { InvoiceService } from "../generated";
-    let invoiceNumber = 6;
+
     let filterMenu = false;
     // const newInvoice = ev => {
         

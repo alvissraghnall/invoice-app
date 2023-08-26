@@ -1,5 +1,5 @@
 <script>
-    import { closeModalOpen, currentInvoice, editInvoice, invoiceModalOpen } from "../store";
+    import { closeModalOpen, currentInvoice, editInvoice, invoiceModalOpen, invoices } from "../store";
     import { onMount, createEventDispatcher, } from "svelte";
     import { Button, Input, Select } from "./shared";
     import { Icon, Trash, Plus } from "svelte-hero-icons";
@@ -11,10 +11,11 @@
     import Loading from "./Loading.svelte";
     import {
         TransitionChild,
-        TransitionRoot,
     } from "@rgossiaux/svelte-headlessui";
+    import { validateNotBlank, validatePositiveNumber, validateNotNull, validateForm } from "../lib/validator";
   
     let errorModalIsOpen = false;
+    let errors;
     let loading = false;
     const dispatch = createEventDispatcher();
 
@@ -29,30 +30,40 @@
 
     const uploadInvoice = async () => {
         console.log(fields.invoiceItemList.length);
-        if(fields.invoiceItemList.length <= 0 || fields.invoiceItemList.some(item => item.itemName === "")) {
-            //modal to fill out work items
-            errorModalIsOpen = true;
+        let validate = validateForm(fields);
+        const isFormValid = validate[0];
+        errors = validate[1];
 
+        if (!isFormValid) {
+            errorModalIsOpen = true;
+            console.log(errors);
             return;
         }
+
         loading = true;
 
         InvoiceService.createInvoice(
             fields
-        ).then(() => {
+        )
+        .then((res) => {
             toast.success("Invoice successfully created!", {
                 style: 'border-radius: 120px; background-color: #4caf50; color: #fff;',
                 icon: '👏',
             });
+            invoices.update(
+                inv => inv.push(res.body)
+            );
+            invoiceModalOpen.set(false);
         }).catch(
             err => {
-                console.error(err, err.body);
+                console.error(err.body, 'th');
+                
                 toast.error("Invoice creation failed!", {
                     style: 'border-radius: 120px; background: #333; color: #fff;',
-                    icon: '👏',
                 });
             }
-        ).finally(() => {
+        )
+        .finally(() => {
             loading = false;
         });
     }
@@ -82,7 +93,6 @@
                 console.error(err, err.body);
                 toast.error("Invoice updation failed!", {
                     style: 'border-radius: 120px; background: #333; color: #fff;',
-                    // icon: '👏',
                 });
             }
         ).finally(() => {
@@ -128,9 +138,9 @@
             }
         ]
     };
-    $: invoiceTotal = fields.invoiceItemList.reduce(
-        (acc, curr) => acc += curr.total, 0
-    );
+    // $: invoiceTotal = fields.invoiceItemList.reduce(
+    //     (acc, curr) => acc += curr.total, 0
+    // );
     $: setPaymentDueDate(fields.paymentTerms);
 
     onMount(() => {
@@ -145,13 +155,13 @@
     let fields = {
         billerStreetAddress: "",
         billerCity: "",
-        billerZipCode: "",
+        billerZipCode: null,
         billerCountry: "",
         clientName: "",
         clientStreetAddress: "",
         clientEmail: "",
         clientCity: "",
-        clientZipCode: "",
+        clientZipCode: null,
         clientCountry: "",
         invoiceDate: new Date(),
         paymentTerms: null,
@@ -169,9 +179,8 @@
         class="relative p-14 max-w-[44rem] w-full bg-holderColor text-white shadow-xl"
         on:submit|preventDefault={submitForm}
     >
-        {#if loading}
+        <!-- {#if loading}
             <TransitionChild
-                show={loading}
                 as="div" 
                 enter="transition ease-out duration-300" 
                 enterFrom="transform opacity-0"
@@ -182,14 +191,10 @@
             >
                 <Loading />
             </TransitionChild>
-        {/if}
+        {/if} -->
         
         <h1 class="font-semibold text-lg mb-12 text-white">
-            {#if $editInvoice}
-                Edit
-            {:else}
-                New
-            {/if}
+            {$editInvoice ? 'Edit' : 'New'}
              Invoice
         </h1>
 
@@ -224,7 +229,7 @@
                         type="number"
                         label="Zip Code"
                         id="billerbillerZipCode"
-                        name="billerbillerZipCode"
+                        name="billerZipCode"
                         bind:value={fields.billerZipCode}
                     />
                 </div>
@@ -289,9 +294,9 @@
             <div class="input flex flex-col mb-6">
                 <Input
                     class="mb-6"
-                    type="text"
-                    id="clientZip"
-                    name="clientZip"
+                    type="number"
+                    id="clientZipCode"
+                    name="clientZipCode"
                     label="Client's Zip Code"
                     bind:value={fields.clientZipCode}
                 />
@@ -319,7 +324,7 @@
                         name="invoiceDate" 
                         label="Invoice Date"
                         disabled 
-                        value={fields.invoiceDate?.toLocaleDateString("en-us", {
+                        value={new Date(fields.invoiceDate).toLocaleDateString("en-us", {
                             year: "numeric", month: "short",
                             day: "numeric"
                         }) ?? ''}
@@ -467,9 +472,29 @@
     isOpen={errorModalIsOpen} 
     on:close={() => (errorModalIsOpen = false)}
 >
-    <span slot="content">
-        Must include at least one invoice item.
-    </span>
+    <!-- <span slot="description"> Input validation failed! </span> -->
+    <ul slot="content" class="space-x-2 space-y-1 text-xs">
+            {#each Object.entries(errors) as [fieldName, error]}
+                {#if typeof error === 'string'}
+                    <li>{error}</li>
+                {:else if Array.isArray(error)}
+                    <li>
+                        {fieldName}:
+                        <ul>
+                            {#each error as subError}
+                                {#if subError}
+                                    {#each Object.entries(subError) as [subField, nestedSubErr]}
+                                        {#if typeof error === 'string'}
+                                            <li>{nestedSubErr}</li>
+                                        {/if}
+                                    {/each}
+                                {/if}
+                            {/each}
+                        </ul>
+                    </li>
+                {/if}
+            {/each}
+    </ul>
 </ErrorModal>
 
 <CloseInvoiceModal

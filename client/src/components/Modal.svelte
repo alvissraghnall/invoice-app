@@ -42,6 +42,7 @@ const closeModal = (ev) => {
             <div class="flex min-h-full items-center justify-center text-center">
 
                 <TransitionChild
+                    class="w-full"
                     as="div"
                     enter="transition ease-out duration-300" 
                     enterFrom="transform scale-90 opacity-0"

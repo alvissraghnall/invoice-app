@@ -1,5 +1,5 @@
 <script>
-    import { Navigate } from "svelte-router-spa";
+    import { Navigate, navigateTo } from "svelte-router-spa";
     import { currentInvoice, editInvoice, invoiceModalOpen, invoices, invoicesLoading } from "../store";
     import { ChevronLeft, Icon, Pencil, Trash } from "svelte-hero-icons";
     import { Button, InvoiceStatus } from "../components/shared";
@@ -11,7 +11,11 @@
 
     let invoiceId = currentRoute.namedParams.invoiceId;
 
-    let invoice, invoiceTotal; 
+    let invoice;
+    
+    $: invoiceTotal = invoice?.invoiceItemList?.reduce(
+        (acc, curr) => acc += (curr.qty * curr.price), 0
+    ) ?? 0;
 
     const toggleEditInvoice = () => {
         editInvoice.update(v => !v);
@@ -21,8 +25,24 @@
         console.log($invoiceModalOpen, $editInvoice);
     }
 
-    const deleteInvoice = () => {
-
+    const deleteInvoice = async () => {
+        InvoiceService.removeById(
+            $currentInvoice.id
+        ).then(() => {
+            toast.success(
+                'Invoice deleted!', {
+                    style: 'background-color: #333; color: #fff; border-radius: 120px;'
+                }
+            );
+            navigateTo('/');
+        }).catch(err => {
+            toast.error(
+                err?.body?.message, {
+                    style: 'border-radius: 120px;'
+                }
+            );
+        });
+        
     }
 
     const updateStatus = async () => {
@@ -74,10 +94,6 @@
         invoice = await fetchInvoice(invoiceId);
 
         console.log(invoice);
-
-        invoiceTotal = invoice?.invoiceItemList?.reduce(
-            (acc, curr) => acc += (curr.qty * curr.price), 0
-        ) ?? 0;
 
         currentInvoice.set(invoice);
         console.log($invoices, invoice, $currentInvoice);

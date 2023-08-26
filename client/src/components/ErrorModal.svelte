@@ -17,19 +17,19 @@ const closeModal = (ev) => {
 </script>
 
 <Modal {isOpen} on:close={closeModal}>
-    <DialogTitle class="text-lg font-medium leading-6 text-red-800">
+    <DialogTitle class="text-xl font-semibold leading-6 text-white">
         <slot name="title">
             Error!
         </slot>
     </DialogTitle>
 
-    <DialogDescription class="mt-2 text-sm text-gray-600">
+    <DialogDescription class="mt-1 text-sm text-white font-medium">
         <slot name="description" />
     </DialogDescription>
 
-    <p class="mt-2 text-sm text-gray-600"><slot name="content" /></p>
+    <div class="mt-2 text-sm text-white"><slot name="content" /></div>
 
-    <Button class="mt-4 bg-butCol text-white/80 text-lg shadow-md" on:click={closeModal}>
+    <Button class="mt-4 !text-butCol bg-white font-semibold hover:bg-butCol hover:!text-white text-lg shadow-md outline-none focus:outline-none" on:click={closeModal}>
         Close
     </Button>
 </Modal>
