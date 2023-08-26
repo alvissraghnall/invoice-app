@@ -66,7 +66,9 @@ public class InvoiceService {
         invoice.setClientName(invoiceDTO.getClientName());
         invoice.setProductDesc(invoiceDTO.getProductDesc());
 
-        invoice.setStatus(InvoiceStatus.valueOf(invoiceDTO.getStatus()));
+        if (invoiceDTO.getStatus() != null) {
+            invoice.setStatus(InvoiceStatus.valueOf(invoiceDTO.getStatus()));
+        };
         invoice.setInvoiceDate(invoiceDTO.getInvoiceDate());
         invoice.setInvoiceItemList(
             invoiceDTO.getInvoiceItemList().stream().map(

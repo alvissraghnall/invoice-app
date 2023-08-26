@@ -3,27 +3,40 @@
     <div class="mb-16 flex">
         <div class="flex flex-col flex-1">
             <h1 class="font-bold text-2xl">Invoices</h1>
-            <span class="text-sm mt-1">There are {$invoices.length} total invoices </span>
+            <span class="text-sm mt-1">
+                <span class="hidden md:inline">There are </span>
+                {$invoices.length} 
+                <span class="hidden md:inline">total </span>
+                invoices 
+            </span>
         </div>
         <div class="flex flex-1 justify-end items-center">
             <button on:click={toggleFilterMenu} class="filter relative mr-10 flex outline-none focus:outline-none border-none items-center cursor-pointer">
-                <span class="text-xs font-medium">Filter by status</span>
+                <span class="text-xs font-medium">
+                    Filter
+                    <span class="hidden md:inline"> by status</span>
+                </span>
                 <span class="ml-3 w-4 h-4">
                     <Icon src={ArrowDown} />
                 </span>
-                {#if filterMenu}
+                <!-- {#if filterMenu} -->
+                <Dialog open={filterMenu}>
                     <ul class="filter-menu w-28 absolute top-6 list-none bg-regColor shadow-md rounded">
                         {#each filterListItems as item}
                             <li class="capitalize cursor-pointer text-sm font-medium py-2.5 px-5 hover:text-regColor hover:bg-white bg-regColor text-white">{item}</li>
                         {/each}
                     </ul>
-                {/if}
+                </Dialog>
+                <!-- {/if} -->
             </button>
             <button class="cursor-pointer py-2 px-2.5 bg-violet-600 rounded-[2rem] text-xs mr-2 text-white outline-none flex items-center" on:click={toggleInvoiceModal}>
                 <div class="mr-1 place-content-center w-5 h-5 flex text-violet-600">
                     <Icon src={PlusCircle} class="bg-white rounded-full" />
                 </div>
-                <span class="text-xs">New Invoice</span>
+                <span class="text-xs">
+                    New 
+                    <span class="hidden md:inline">Invoice</span>
+                </span>
             </button>
         </div>
     </div>
@@ -58,6 +71,7 @@
     import {Icon, ArrowDown, PlusCircle} from "svelte-hero-icons";
     import { onMount } from "svelte";
     import { InvoiceService } from "../generated";
+    import { Dialog } from "@rgossiaux/svelte-headlessui";
 
     let filterMenu = false;
     // const newInvoice = ev => {

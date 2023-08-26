@@ -159,7 +159,7 @@
                         <p class="text-base"> { $currentInvoice.productDesc ?? '' } </p>
                     </div>
 
-                    <div class="text-[#dfe3fa] flex-1 flex flex-col text-xs items-end">
+                    <div class="text-[#dfe3fa] flex-1 flex flex-col text-xs items-end capitalize">
                         <p> {$currentInvoice.billerStreetAddress ?? ''} </p>
                         <p> {$currentInvoice.billerCity ?? ''} </p>
                         <p> { $currentInvoice.billerZipCode  ?? 0 } </p>

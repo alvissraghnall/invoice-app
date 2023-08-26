@@ -12,6 +12,7 @@ import { createEventDispatcher, } from "svelte";
 const dispatch = createEventDispatcher();
 
 export let isOpen;
+export let extraOverlayClasses = '';
 
 const closeModal = (ev) => {
     dispatch('close');
@@ -35,7 +36,7 @@ const closeModal = (ev) => {
             leaveFrom="transform opacity-100" 
             leaveTo="transform opacity-0"
         >
-            <DialogOverlay class="fixed inset-0 bg-gray-500 bg-opacity-75" />
+            <DialogOverlay class="fixed inset-0 bg-gray-500 bg-opacity-75 {extraOverlayClasses}" />
         </TransitionChild>
 
         <div class="fixed inset-0 overflow-y-auto max-w-sm mx-auto my-auto h-max shadow-xl rounded-2xl">
