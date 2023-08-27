@@ -47,7 +47,7 @@
 
     <div class="bg-[#141625] min-h-screen flex-col lg:flex-row flex">
       <Header />
-      <div class="py-0 px-5 flex-1 relative flex flex-col">
+      <div class="py-0 max-md:px-1 max-sm:px-[0.1rem] px-5 flex-1 relative flex flex-col">
         <ModalWrapper />
         <Router {routes} />
       </div>

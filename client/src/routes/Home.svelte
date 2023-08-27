@@ -6,7 +6,7 @@
             <span class="text-sm mt-1">
                 <span class="hidden md:inline">There are </span>
                 {$invoices.length} 
-                <span class="hidden md:inline">total </span>
+                <span class="hidden sm:inline">total </span>
                 invoices 
             </span>
         </div>
