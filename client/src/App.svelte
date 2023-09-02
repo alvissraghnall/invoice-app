@@ -46,7 +46,7 @@
 
   <div class="dark:bg-holderColor bg-mainBg min-h-screen flex items-start">
     <Aside />
-    <main class="py-0 max-md:px-12 max-sm:px-4 px-5 flex-1 relative flex flex-col lg:ml-40 max-sm:mt-28 max-lg:mt-32">
+    <main class="py-0 max-md:px-8 max-sm:px-2 px-5 flex-1 relative flex flex-col lg:ml-40 max-sm:mt-24 max-lg:mt-28">
       <ModalWrapper />
       <Router {routes} />
     </main>

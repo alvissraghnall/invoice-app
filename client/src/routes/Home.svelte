@@ -6,8 +6,8 @@
             <span class="text-sm mt-1 text-[#888eb0] dark:text-white">
                 <span class="hidden md:inline">There are </span>
                 {$invoices.length}
-                <span class="hidden sm:inline">total </span>
-                invoices 
+                <span class="hidden sm:inline">total</span>
+                invoices
             </span>
         </div>
         <div class="flex flex-1 justify-end items-center">
@@ -16,17 +16,19 @@
                     Filter
                     <span class="hidden md:inline"> by status</span>
                 </span>
-                <span class="ml-3 w-4 h-4">
+                <span class="ml-3 w-4 h-4 relative">
                     <Icon src={ArrowDown} />
+
+                    <Dialog open={filterMenu} class="bg-white dark:bg-butCol">
+                        <ul class="filter-menu w-28 absolute top-6 list-none bg-regColor shadow-md rounded">
+                            {#each filterListItems as item}
+                                <li class="capitalize cursor-pointer text-sm font-medium py-2.5 px-5 hover:text-regColor hover:bg-white bg-regColor text-white">{item}</li>
+                            {/each}
+                        </ul>
+                    </Dialog>
                 </span>
                 <!-- {#if filterMenu} -->
-                <Dialog open={filterMenu} class="bg-white dark:bg-butCol">
-                    <ul class="filter-menu w-28 absolute top-6 list-none bg-regColor shadow-md rounded">
-                        {#each filterListItems as item}
-                            <li class="capitalize cursor-pointer text-sm font-medium py-2.5 px-5 hover:text-regColor hover:bg-white bg-regColor text-white">{item}</li>
-                        {/each}
-                    </ul>
-                </Dialog>
+                
                 <!-- {/if} -->
             </button>
             <button class="cursor-pointer py-2 px-2.5 bg-violet-600 rounded-[2rem] text-xs mr-2 text-white outline-none flex items-center" on:click={toggleInvoiceModal}>
@@ -63,6 +65,9 @@
     
 </div>
 
+<svelte:head>
+    <title>Invoice App | Home </title>
+</svelte:head>
 
 <script>
     import { invoices, invoicesLoading } from "../store";

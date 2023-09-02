@@ -15,7 +15,7 @@
 </script>
 
 <div>
-    <Navigate to="invoice/{invoice.id}" styles="flex max-lg:flex-col max-lg:gap-y-2 cursor-pointer gap-4 mb-4 dark:text-white text-gray-600 rounded-3xl no-underline py-7 px-8 bg-mainBg dark:bg-regColor items-center hover:border hover:border-solid hover:border-[#7c5dfa]">
+    <Navigate to="invoice/{invoice.id}" styles="flex max-lg:flex-col shadow-xl max-lg:gap-y-2 cursor-pointer gap-4 mb-4 dark:text-white text-gray-600 rounded-3xl no-underline py-7 px-8 bg-mainBg dark:bg-regColor items-center hover:border hover:border-solid hover:border-[#7c5dfa]">
         <div class="flex items-center basis-3/5 gap-4 max-lg:flex-col max-lg:gap-3 w-full max-lg:items-start">
             <span class="flex-1 uppercase text-sm text-neutral-600">
                 #<span class="text-[#0c0e16] dark:text-white font-semibold">{invoice.id.slice(18, 24)}</span>

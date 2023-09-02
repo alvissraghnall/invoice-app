@@ -100,50 +100,50 @@
     });
 </script>
 
-{#if $invoicesLoading}
+<!-- {#if $invoicesLoading}
     <div class="bg-butCol/80 w-full min-h-screen flex justify-center items-center">
       <div class="bg-butCol/50 p-10 shadow-md rounded-xl relative">
         <InvoicesLoading />
       </div>
     </div>
-  {:else}
+  {:else} -->
     {#if Object.keys($currentInvoice).length !== 0}
         <div class="m-6 p-4 mx-auto w-full max-md:mx-auto max-md:m-3 lg:max-w-3xl">
-            <Navigate to="/" styles="flex mb-8 items-center text-white text-sm ml-2">
+            <Navigate to="/" styles="flex mb-8 items-center dark:text-white text-[#0c0e16] text-sm ml-2">
                 <span class="w-3 h-3 inline-block mr-2 text-base font-semibold"><Icon src={ChevronLeft}  /></span>
                 <span class="capitalize">go back</span>
             </Navigate>
 
-            <div class="flex text-xs rounded-3xl bg-regColor items-center py-6 px-8">
+            <div class="flex text-xs rounded-3xl bg-mainBg dark:bg-regColor items-center py-6 px-8 max-md:px-3 shadow-lg dark:shadow-none">
                 <div class="flex items-center">
-                    <span class="text-[#dfe3fa] mr-4">Status</span>
+                    <span class="dark:text-[#dfe3fa] text-gray-700 mr-4 max-md:hidden">Status</span>
                     <InvoiceStatus
                         status={$currentInvoice.status}
                     />
                 </div>
 
-                <div class="flex flex-1 justify-end">
+                <div class="flex flex-1 justify-end gap-1">
                     <Button
-                        class="bg-purple-900 text-white !py-2 !px-2 font-semibold flex justify-center items-center"
+                        class="bg-purple-900 text-white !py-2 !px-2 !mr-0 font-semibold flex justify-center items-center"
                         on:click={toggleEditInvoice}
                     >
-                        <span class="w-6 h-6 inline-block font-semibold">
+                        <span class="w-6 h-6 inline-block font-semibold max-md:h-5 max-md:w-5">
                             <Icon src={Pencil} />
                         </span>
                     </Button>
 
                     <Button
-                        class="bg-red-700 text-white !py-2 !px-2 flex justify-center items-center"
+                        class="bg-red-700 text-white !py-2 !px-2 !mr-0 flex justify-center items-center"
                         on:click={deleteInvoice}
                     >
-                        <span class="w-6 h-6 inline-block font-semibold">
+                        <span class="md:w-6 md:h-6 h-5 w-5 inline-block font-semibold">
                             <Icon src={Trash} />
                         </span>
                     </Button>
                     
                     {#if $currentInvoice.status !== 'COMPLETED'}
                         <Button
-                            class="bg-green-700 text-white"
+                            class="bg-green-700 text-white max-md:text-sm"
                             on:click={updateStatus}>
                             Mark as Completed
                         </Button>
@@ -152,14 +152,14 @@
                 </div>
             </div>
 
-            <div class="flex flex-col rounded-3xl bg-regColor p-12 mt-6">
-                <div class="flex">
-                    <div class="text-[#dfe3fa] flex-[2] flex text-xs flex-col">
-                        <p class="text-2xl uppercase text-white mb-2"><span class="text-[#888eb0]">#</span> {$currentInvoice.id} </p>
-                        <p class="text-base"> { $currentInvoice.productDesc ?? '' } </p>
+            <div class="flex flex-col rounded-3xl bg-mainBg dark:bg-regColor p-12 mt-6 shadow-lg dark:shadow-none">
+                <div class="flex max-md:flex-col">
+                    <div class="dark:text-[#dfe3fa] text-stone-800 flex-[2] flex text-xs flex-col">
+                        <p class="text-2xl uppercase dark:text-white mb-2 text-black"><span class="text-[#888eb0]">#</span> {$currentInvoice.id} </p>
+                        <p class="text-base text-slate-700"> { $currentInvoice.productDesc ?? '' } </p>
                     </div>
 
-                    <div class="text-[#dfe3fa] flex-1 flex flex-col text-xs items-end capitalize">
+                    <div class="dark:text-[#dfe3fa] text-stone-800 flex-1 flex flex-col text-xs items-end capitalize mt-2 gap-1 max-md:items-start">
                         <p> {$currentInvoice.billerStreetAddress ?? ''} </p>
                         <p> {$currentInvoice.billerCity ?? ''} </p>
                         <p> { $currentInvoice.billerZipCode  ?? 0 } </p>
@@ -167,7 +167,7 @@
                     </div>
                 </div>
 
-                <div class="mt-12 text-[#dfe3fa] gap-4 flex">
+                <div class="mt-12 dark:text-[#dfe3fa] text-stone-800 gap-4 flex">
                     <div class="flex-1 flex flex-col">
                         <h4 class="text-xs font-normal mb-3">Invoice Date</h4>
 
@@ -209,15 +209,15 @@
 
                 <div class="mt-12 flex-col flex">
                     <div class="p-8 rounded-t-2xl dark:bg-butCol bg-[#f9fafe]">
-                        <div class="text-[#dfe3fa] text-xs mb-8 flex">
+                        <div class="text-slate-800 dark:text-[#dfe3fa] text-xs mb-8 flex">
                             <p class="flex-[3] text-left">Item Name</p>
                             <p class="flex-1 text-right">Qty.</p>
                             <p class="flex-1 text-right">Price</p>
-                            <p class="flex-1 text-right dark:text-[#0c0e16] text-[#373b53]">Total</p>
+                            <p class="flex-1 text-right text-[#0c0e16] dark:text-[#373b53]">Total</p>
                         </div>
 
                         {#each $currentInvoice.invoiceItemList as item}
-                            <div class="flex mb-8 text-sm text-white last:mb-0">
+                            <div class="flex mb-8 text-sm text-slate-800 dark:text-white last:mb-0">
 
                                 <p class="flex-[3] text-left">{item.itemName}</p>
                                 <p class="flex-1 text-right">{item.qty}</p>
@@ -227,7 +227,7 @@
                         {/each}
                     </div>
 
-                    <div class="text-white p-8 bg-[rgba(12,14,22,.7)] items-center rounded-b-2xl flex">
+                    <div class="text-white p-8 bg-black dark:bg-[rgba(12,14,22,.7)] items-center rounded-b-2xl flex">
                         <p class="flex-1 text-xs">Amount Due</p>
                         <p class="flex-1 text-lg text-right">$ {invoiceTotal}</p>
                     </div>
@@ -237,4 +237,4 @@
         {:else}
             <!-- 404 content -->
     {/if}
-{/if}
+<!-- {/if} -->
