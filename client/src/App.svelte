@@ -36,7 +36,7 @@
   <!-- {#if !$invoicesLoading} -->
   <Modal isOpen={$invoicesLoading} extraOverlayClasses="!bg-butCol/80" on:close={null}>
     <!-- <div class=" w-full min-h-screen flex justify-center items-center"> -->
-      <div class="bg-butCol/50 p-5 flex justify-center items-center rounded-xl relative z-[808] w-full">
+      <div class="bg-white dark:bg-butCol flex justify-center items-center rounded-xl relative z-[808] w-full">
         <InvoicesLoading />
       </div>
     <!-- </div> -->
@@ -45,8 +45,8 @@
   <!-- {:else} -->
 
   <div class="dark:bg-holderColor bg-mainBg min-h-screen flex items-start">
-    <Header />
-    <main class="py-0 max-md:px-12 max-sm:px-4 px-5 flex-1 relative flex flex-col">
+    <Aside />
+    <main class="py-0 max-md:px-12 max-sm:px-4 px-5 flex-1 relative flex flex-col lg:ml-40 max-sm:mt-28 max-lg:mt-32">
       <ModalWrapper />
       <Router {routes} />
     </main>

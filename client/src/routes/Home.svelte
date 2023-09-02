@@ -1,18 +1,18 @@
 
-<div class="text-white/90 w-full max-w-[53rem] py-10 px-2.5 my-0 mx-auto lg:pt-20 font-poppins">
+<div class="dark:text-white/90 text-neutral-800 w-full max-w-[53rem] py-10 px-2.5 my-0 mx-auto lg:pt-20 font-poppins">
     <div class="mb-16 flex">
         <div class="flex flex-col flex-1">
             <h1 class="font-bold text-2xl">Invoices</h1>
-            <span class="text-sm mt-1">
+            <span class="text-sm mt-1 text-[#888eb0] dark:text-white">
                 <span class="hidden md:inline">There are </span>
-                {$invoices.length} 
+                {$invoices.length}
                 <span class="hidden sm:inline">total </span>
                 invoices 
             </span>
         </div>
         <div class="flex flex-1 justify-end items-center">
             <button on:click={toggleFilterMenu} class="filter relative mr-10 flex outline-none focus:outline-none border-none items-center cursor-pointer">
-                <span class="text-xs font-medium">
+                <span class="text-base font-medium">
                     Filter
                     <span class="hidden md:inline"> by status</span>
                 </span>

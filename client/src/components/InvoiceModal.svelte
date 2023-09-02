@@ -180,7 +180,7 @@
 </script>
 
 <div
-    class="left-0 bg-transparent h-screen overflow-y-scroll max-[1000px]:left-32 lg:left-40 w-full flex flex-col"
+    class="left-0 bg-transparent h-screen overflow-y-scroll ml-0 max-[1000px]:ml-24 lg:ml-32 w-full flex flex-col"
 >
     <form
         class="relative p-14 max-w-[44rem] w-full bg-holderColor text-white shadow-xl"
