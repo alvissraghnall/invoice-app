@@ -1,6 +1,6 @@
 <script>
   import { invoiceModalOpen } from "./store";
-  import { InvoicesLoading, ModalWrapper, Header } from "./components";
+  import { InvoicesLoading, Modal, ModalWrapper, Aside } from "./components";
   import { Router } from "svelte-router-spa";
   import { routes } from "./routes/router";
   import { onMount } from "svelte";
@@ -8,8 +8,7 @@
   import { quintOut } from "svelte/easing";
   import {Toaster} from "svelte-french-toast"
   import { invoices, invoicesLoading } from "./store";
-    import Modal from "./components/Modal.svelte";
-
+  
   const closeInvoiceModal = () => {
     invoiceModalOpen.set(false);
   };
@@ -45,13 +44,13 @@
     <!-- {/if} -->
   <!-- {:else} -->
 
-    <div class="bg-[#141625] min-h-screen flex-col lg:flex-row flex">
-      <Header />
-      <div class="py-0 max-md:px-1 max-sm:px-[0.1rem] px-5 flex-1 relative flex flex-col">
-        <ModalWrapper />
-        <Router {routes} />
-      </div>
-    </div>
+  <div class="dark:bg-holderColor bg-mainBg min-h-screen flex items-start">
+    <Header />
+    <main class="py-0 max-md:px-12 max-sm:px-4 px-5 flex-1 relative flex flex-col">
+      <ModalWrapper />
+      <Router {routes} />
+    </main>
+  </div>
   
   <!-- {/if} -->
   <!-- </Router> -->

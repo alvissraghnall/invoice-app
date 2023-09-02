@@ -11,7 +11,8 @@ module.exports = {
         holderColor: "#141625",
         regColor: "#1e2139",
         butCol: "#252945",
-        orange: "#ff8f01"
+        orange: "#ff8f01",
+        mainBg: "#f8f8fb"
       },
       fontFamily: {
         sans: ["Graphik", "sans-serif"],

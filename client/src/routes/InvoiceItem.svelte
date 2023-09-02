@@ -208,12 +208,12 @@
                 </div>
 
                 <div class="mt-12 flex-col flex">
-                    <div class="p-8 rounded-t-2xl bg-[#252945]">
+                    <div class="p-8 rounded-t-2xl dark:bg-butCol bg-[#f9fafe]">
                         <div class="text-[#dfe3fa] text-xs mb-8 flex">
                             <p class="flex-[3] text-left">Item Name</p>
                             <p class="flex-1 text-right">Qty.</p>
                             <p class="flex-1 text-right">Price</p>
-                            <p class="flex-1 text-right">Total</p>
+                            <p class="flex-1 text-right dark:text-[#0c0e16] text-[#373b53]">Total</p>
                         </div>
 
                         {#each $currentInvoice.invoiceItemList as item}

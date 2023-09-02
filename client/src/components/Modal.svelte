@@ -52,7 +52,7 @@ const closeModal = (ev) => {
                     leaveFrom="transform scale-100 opacity-100" 
                     leaveTo="transform scale-90 opacity-0"
                 >
-                    <div class="w-full max-w-md overflow-hidden rounded-2xl text-white bg-butCol py-12 px-8 align-middle shadow-xl">
+                    <div class="w-full max-w-md overflow-hidden rounded-2xl text-[#0c0e16] bg-white dark:text-white dark:bg-butCol py-12 px-8 align-middle shadow-xl">
                         <slot />
                     </div>
                 </TransitionChild>

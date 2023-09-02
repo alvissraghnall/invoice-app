@@ -20,7 +20,7 @@
                     <Icon src={ArrowDown} />
                 </span>
                 <!-- {#if filterMenu} -->
-                <Dialog open={filterMenu}>
+                <Dialog open={filterMenu} class="bg-white dark:bg-butCol">
                     <ul class="filter-menu w-28 absolute top-6 list-none bg-regColor shadow-md rounded">
                         {#each filterListItems as item}
                             <li class="capitalize cursor-pointer text-sm font-medium py-2.5 px-5 hover:text-regColor hover:bg-white bg-regColor text-white">{item}</li>
