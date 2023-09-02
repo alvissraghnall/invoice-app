@@ -1,4 +1,4 @@
-
+<Meta title="Home" keywords="Invoicing, frontendmentor, invoice app, Alviss Raghnall" />
 <div class="dark:text-white/90 text-neutral-800 w-full max-w-[53rem] py-10 px-2.5 my-0 mx-auto lg:pt-20 font-poppins">
     <div class="mb-16 flex">
         <div class="flex flex-col flex-1">
@@ -56,22 +56,14 @@
                 <!-- <span class="sr-only">No invoices</span> -->
         <!-- {/await} -->
     {:else}
-        <div class="flex flex-col mt-20 items-center">
-            <img class="w-52 h-48" src="assets/illustration-empty.svg" alt="" />
-            <h3 class="text-2xl mt-10">There is nothing here!</h3>
-            <p class="text-center text-sm max-w-xs font-light mt-4">Create a new invoice by clicking the "Add New Invoice" button and get started. </p>
-        </div>
+        <NotFound />
     {/if}
     
 </div>
 
-<svelte:head>
-    <title>Invoice App | Home </title>
-</svelte:head>
-
 <script>
     import { invoices, invoicesLoading } from "../store";
-    import { Invoice } from "../components";
+    import { Invoice, Meta, NotFound } from "../components";
     import { invoiceModalOpen } from "../store";
     import {Icon, ArrowDown, PlusCircle} from "svelte-hero-icons";
     import { onMount } from "svelte";

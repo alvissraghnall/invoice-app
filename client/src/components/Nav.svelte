@@ -1,16 +1,8 @@
-<!-- <header class="flex z-50 flex-row md:flex-col md:bg-[#353b68]/50 bg-[#353b68] lg:min-h-full w-16 lg:flex-col rounded-tbr-lg">
-    <div class="flex rounded-r-2xl bg-violet-700 justify-center p-6 max-sm:w-28 max-sm:after:w-28 max-lg:h-full max-lg:w-32 max-lg:after:h-full max-lg:after:w-32 cursor-pointer max-[1000px]:h-32 max-[1000px]:after:h-32 max-[1000px]:after:top-16 w-full h-40 relative items-center overflow-hidden after:h-40 after:w-full after:absolute after:bg-[rgb(146,119,255)] after:top-20 after:left-0 after:rounded-tl-2xl">
-        <div class="max-[1000px]:w-12 max-[1000px]:h-11 h-14 w-16 z-[1] relative">
-            <img src="assets/logo.svg" alt="" class="w-auto h-7">
-        </div>
-    </div>
-</header> -->
-
 <aside class="relative z-20">
     <div class="h-screen w-[6.5rem] rounded-r-2xl fixed flex justify-between flex-col md:bg-[#373b53]/95 bg-[#373b53] max-[1000px]:w-24 max-md:h-24 max-lg:h-28 max-lg:w-full max-lg:flex-row max-lg:rounded-none max-sm:h-20 dark:bg-[rgb(30,33,57)]">
         <div class="flex rounded-r-2xl bg-violet-700 justify-center p-6 max-sm:w-20 max-sm:after:w-20 max-lg:h-full max-lg:w-24 max-lg:after:h-full max-lg:after:w-24 cursor-pointer max-[1000px]:h-28 max-[1000px]:after:h-28 w-full h-32 relative items-center overflow-hidden after:h-32 after:w-full after:absolute after:bg-[rgb(146,119,255)] after:top-1/2 max-lg:after:top-2/4 after:left-0 after:rounded-tl-2xl">
             <div class="max-[1000px]:w-12 max-[1000px]:h-11 h-14 w-16 z-[1] relative flex justify-center items-center">
-                <img src="assets/logo.svg" alt="" class="w-auto h-8">
+                <img src="/assets/logo.svg" alt="" class="w-auto h-8">
             </div>
         </div>
 

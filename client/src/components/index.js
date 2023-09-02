@@ -5,3 +5,5 @@ export { default as Invoice } from "./Invoice.svelte";
 export { default as InvoicesLoading } from "./InvoicesLoading.svelte";
 export { default as Aside } from "./Nav.svelte";
 export { default as Loading } from "./Loading.svelte";
+
+export * from "./shared";

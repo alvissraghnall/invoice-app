@@ -1,4 +1,6 @@
 {
+  "license": "MIT",
+  "author": "Alviss Raghnall",
   "dependencies": {
     "@rgossiaux/svelte-headlessui": "^2.0.0",
     "@rollup/plugin-typescript": "^11.1.2",
