@@ -11,3 +11,4 @@ export const editInvoice = writable(false);
 
 export const currentInvoice = writable({});
 
+export const dark = writable(false);
