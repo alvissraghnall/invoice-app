@@ -230,7 +230,7 @@
         </div>
     </div>
     {:else}
-        <NotFound />
+        <NotFound {currentRoute} />
 {/if}
 
 
