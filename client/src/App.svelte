@@ -1,6 +1,6 @@
 <script>
   import { invoiceModalOpen } from "./store";
-  import { InvoicesLoading, ModalWrapper, Header } from "./components";
+  import { InvoicesLoading, Modal, ModalWrapper, Aside } from "./components";
   import { Router } from "svelte-router-spa";
   import { routes } from "./routes/router";
   import { onMount } from "svelte";
@@ -8,7 +8,7 @@
   import { quintOut } from "svelte/easing";
   import {Toaster} from "svelte-french-toast"
   import { invoices, invoicesLoading } from "./store";
-
+  
   const closeInvoiceModal = () => {
     invoiceModalOpen.set(false);
   };
@@ -33,22 +33,24 @@
 <svelte:window on:resize={checkScreen} />
 
 <div class="font-poppins">
-  {#if $invoicesLoading}
-    <div class="bg-butCol/80 w-full min-h-screen flex justify-center items-center">
-      <div class="bg-butCol/50 p-10 shadow-md rounded-xl relative z-[808]">
+  <!-- {#if !$invoicesLoading} -->
+  <Modal isOpen={$invoicesLoading} extraOverlayClasses="!bg-butCol/80" on:close={null}>
+    <!-- <div class=" w-full min-h-screen flex justify-center items-center"> -->
+      <div class="bg-white dark:bg-butCol flex justify-center items-center rounded-xl relative z-[808] w-full">
         <InvoicesLoading />
       </div>
-    </div>
-    {/if}
+    <!-- </div> -->
+  </Modal>
+    <!-- {/if} -->
   <!-- {:else} -->
 
-    <div class="bg-[#141625] min-h-screen flex-col lg:flex-row flex">
-      <Header />
-      <div class="py-0 px-5 flex-1 relative flex flex-col">
-        <ModalWrapper />
-        <Router {routes} />
-      </div>
-    </div>
+  <div class="dark:bg-holderColor bg-mainBg min-h-screen flex items-start">
+    <Aside />
+    <main class="py-0 max-w-full max-md:px-8 max-sm:px-2 px-5 flex-1 relative flex flex-col lg:ml-40 max-sm:mt-24 max-lg:mt-28">
+      <ModalWrapper />
+      <Router {routes} />
+    </main>
+  </div>
   
   <!-- {/if} -->
   <!-- </Router> -->

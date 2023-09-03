@@ -15,30 +15,32 @@
 </script>
 
 <div>
-    <Navigate to="invoice/{invoice.id}" styles="flex cursor-pointer gap-4 mb-4 text-white rounded-3xl no-underline py-7 px-8 bg-regColor items-center">
-        <div class="flex items-center basis-7/12 gap-4">
-            <span class="track_no flex-1 uppercase text-sm">
-                #{invoice.id.slice(16, 24)}
+    <Navigate to="invoice/{invoice.id}" styles="flex max-lg:flex-col shadow-xl max-lg:gap-y-2 cursor-pointer gap-4 mb-4 dark:text-white text-gray-600 rounded-3xl no-underline py-7 px-8 bg-mainBg dark:bg-regColor items-center hover:border hover:border-solid hover:border-[#7c5dfa]">
+        <div class="flex items-center basis-3/5 gap-4 max-lg:flex-col max-lg:gap-3 w-full max-lg:items-start">
+            <span class="flex-1 uppercase text-sm text-neutral-600">
+                #<span class="text-[#0c0e16] dark:text-white font-semibold">{invoice.id.slice(18, 24)}</span>
             </span>
-            <span class="due_date flex-1 text-sm">
+            <span class="flex-1 text-sm text-gray-600 dark:text-white">
                 {invoice.paymentDueDate ? new Date(invoice.paymentDueDate).toLocaleDateString("en-us", {
                     year: "numeric", month: "short",
                     day: "numeric"
                 }) : ''}
             </span>
-            <span class="person flex-1  text-sm">
+            <span class="flex-1 text-sm max-lg:hidden">
                 {invoice.clientName}
             </span>
         </div>
 
-        <div class="flex gap-4 basis-2/5 items-center">
-            <span class="flex-1 text-base font-semibold">${totalAmount}</span>
+        <div class="flex gap-4 basis-2/5 items-center w-full justify-between">
+            <span class="flex-1 text-base font-semibold text-black dark:text-white">${totalAmount}</span>
 
-            <InvoiceStatus
-                status={invoice.status}
-            />
+            <div class="">
+                <InvoiceStatus
+                    status={invoice.status}
+                />
+            </div>
 
-            <div class="ml-3 w-4 h-4 font-bold text-white">  
+            <div class="ml-3 w-4 h-4 font-bold dark:text-white text-neutral-600 max-lg:hidden">  
                 <Icon src={ChevronRight} />
             </div>
 

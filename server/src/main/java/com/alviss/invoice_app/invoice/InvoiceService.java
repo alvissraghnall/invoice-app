@@ -16,9 +16,12 @@ public class InvoiceService {
     InvoiceDTO createInvoice (InvoiceDTO invoiceDTO) {
         final Invoice invoice = new Invoice();
         mapToEntity(invoiceDTO, invoice);
-        invoice.setPaymentDueDate(invoiceDTO.getInvoiceDate().plus(
-            Period.ofDays(invoiceDTO.getPaymentTerms())
-        ));
+        if (invoice.getPaymentDueDate() == null) {
+
+            invoice.setPaymentDueDate(invoiceDTO.getInvoiceDate().plus(
+                Period.ofDays(invoiceDTO.getPaymentTerms())
+            ));
+        }
         Invoice savedInvoice = invoiceRepository.save(invoice);
 
         System.out.println(savedInvoice.getPaymentDueDate().plusDays(22));
@@ -63,7 +66,9 @@ public class InvoiceService {
         invoice.setClientName(invoiceDTO.getClientName());
         invoice.setProductDesc(invoiceDTO.getProductDesc());
 
-        invoice.setStatus(InvoiceStatus.valueOf(invoiceDTO.getStatus()));
+        if (invoiceDTO.getStatus() != null) {
+            invoice.setStatus(InvoiceStatus.valueOf(invoiceDTO.getStatus()));
+        };
         invoice.setInvoiceDate(invoiceDTO.getInvoiceDate());
         invoice.setInvoiceItemList(
             invoiceDTO.getInvoiceItemList().stream().map(

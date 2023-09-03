@@ -39,7 +39,6 @@
     >
       <div class="flex min-h-full items-center justify-center">
         <TransitionChild
-          as="div"
           enter="transform transition ease-in-out duration-500 sm:duration-700"
           enterFrom="-translate-x-full"
           enterTo="translate-x-0"

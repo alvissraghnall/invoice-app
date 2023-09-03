@@ -12,6 +12,7 @@ import { createEventDispatcher, } from "svelte";
 const dispatch = createEventDispatcher();
 
 export let isOpen;
+export let extraOverlayClasses = '';
 
 const closeModal = (ev) => {
     dispatch('close');
@@ -35,13 +36,14 @@ const closeModal = (ev) => {
             leaveFrom="transform opacity-100" 
             leaveTo="transform opacity-0"
         >
-            <DialogOverlay class="fixed inset-0 bg-gray-500 bg-opacity-75" />
+            <DialogOverlay class="fixed inset-0 bg-gray-500 bg-opacity-75 {extraOverlayClasses}" />
         </TransitionChild>
 
         <div class="fixed inset-0 overflow-y-auto max-w-sm mx-auto my-auto h-max shadow-xl rounded-2xl">
             <div class="flex min-h-full items-center justify-center text-center">
 
                 <TransitionChild
+                    class="w-full"
                     as="div"
                     enter="transition ease-out duration-300" 
                     enterFrom="transform scale-90 opacity-0"
@@ -50,7 +52,7 @@ const closeModal = (ev) => {
                     leaveFrom="transform scale-100 opacity-100" 
                     leaveTo="transform scale-90 opacity-0"
                 >
-                    <div class="w-full max-w-md overflow-hidden rounded-2xl text-white bg-butCol py-12 px-8 align-middle shadow-xl">
+                    <div class="w-full max-w-md overflow-hidden rounded-2xl text-[#0c0e16] bg-white dark:text-white dark:bg-butCol py-12 px-8 align-middle shadow-xl">
                         <slot />
                     </div>
                 </TransitionChild>
