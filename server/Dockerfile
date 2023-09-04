@@ -4,7 +4,7 @@
 FROM maven:3.9.0-eclipse-temurin-17 AS build
 WORKDIR /app
 # mvn spring-boot:build-image
-COPY . /app
+COPY . .
 RUN mvn clean package -DskipTests
 
 #
