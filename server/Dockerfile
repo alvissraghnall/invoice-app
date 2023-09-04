@@ -1,8 +1,9 @@
 #
 # Build stage
 #
-FROM maven:3.8.2-eclipse-temurin-17 AS build
-COPY . .
+FROM maven:3.9.0-eclipse-temurin-17 AS build
+VOLUME /app
+COPY . /app
 RUN mvn clean package -DskipTests
 
 #
