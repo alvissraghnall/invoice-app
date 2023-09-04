@@ -4,7 +4,7 @@
 FROM maven:3.8.2-eclipse-temurin-17 AS build
 VOLUME /tmp
 COPY . /app
-RUN mvn clean package -Pprod -DskipTests
+RUN mvn clean package -Pproduction -DskipTests
 
 #
 # Package stage
