@@ -16,20 +16,13 @@ import io.swagger.v3.oas.models.servers.Server;
 public class OpenAPIConfig {
     
     @Value("${base-url}")
-    private String devUrl;
-
-    @Value("${prod-url}")
-    private String prodUrl;
+    private String baseUrl;
 
     @Bean
     public OpenAPI openApiConfig () {
-        Server devServer = new Server();
-        devServer.setUrl(devUrl);
-        devServer.setDescription("Server URL in development environment");
-    
-        Server prodServer = new Server();
-        prodServer.setUrl(prodUrl);
-        prodServer.setDescription("Server URL in production environment");
+        Server server = new Server();
+        server.setUrl(baseUrl);
+        server.setDescription("Server URL in environment");
     
         Contact contact = new Contact();
         contact.setEmail("isiomastewart@gmail.com");
@@ -46,7 +39,7 @@ public class OpenAPIConfig {
             .termsOfService("")
             .license(mitLicense);
 
-        return new OpenAPI().info(info).servers(List.of(devServer, prodServer));
+        return new OpenAPI().info(info).servers(List.of(server));
     }
 
 }
