@@ -2,7 +2,8 @@
 # Build stage
 #
 FROM maven:3.9.0-eclipse-temurin-17 AS build
-VOLUME /app
+WORKDIR /app
+# mvn spring-boot:build-image
 COPY . /app
 RUN mvn clean package -DskipTests
 
