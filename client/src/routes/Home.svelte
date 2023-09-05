@@ -5,12 +5,15 @@
     import { Icon, ArrowDown, PlusCircle } from "svelte-hero-icons";
     import { onMount } from "svelte";
     import { InvoiceService } from "../generated";
-    import { Dialog } from "@rgossiaux/svelte-headlessui";
 
-    let filterMenu = false;
-    // const newInvoice = ev => {
+    const filterInvoices = (ev) => {
+        filteredInvoice = ev.detail;
+        $invoices.filter(invoice => {
+            invoice.status.trim().toLowerCase() === filteredInvoice.trim().toLowerCase()
+        });
+    };
 
-    // }
+    let filteredInvoice = null;
 
     const toggleInvoiceModal = () => {
         invoiceModalOpen.update((value) => !value);
@@ -55,7 +58,7 @@
             </span>
         </div>
         <div class="flex flex-1 justify-end items-center">
-            <Filter {filterListItems} />
+            <Filter {filterListItems} on:filter={filterInvoices} />
             <button
                 class="cursor-pointer py-2 px-2.5 bg-violet-600 rounded-[2rem] text-xs mr-2 text-white outline-none flex items-center"
                 on:click={toggleInvoiceModal}
