@@ -1,0 +1,19 @@
+spring:
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
+  jackson:
+    deserialization:
+      fail-on-unknown-properties: true
+  mail:
+    port: 1025
+    host: localhost
+  data:
+    mongodb:
+      uri: ${DB_URI}
+
+base-url: ${BASE_URL}
+
+server:
+  error:
+    include-stacktrace: never

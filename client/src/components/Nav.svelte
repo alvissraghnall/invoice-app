@@ -9,11 +9,7 @@
         <div class="flex flex-col items-center justify-center gap-6 max-lg:flex-row">
             <!-- svelte-ignore a11y-click-events-have-key-events -->
             <span on:click={toggleDarkMode} class="text-4xl cursor-pointer hover:text-[#dfe3fa] max-lg:mb-0 text-[#7e88c3] dark:text-[#858bb2]">
-                <!-- {#if $dark} -->
-                    <Icon class="w-6 h-6" src={$dark ? Sun : Moon} />
-                <!-- {:else}
-                    <Icon class="w-10 h-10" src={Moon} />
-                {/if} -->
+                <Icon class="w-6 h-6" src={$dark ? Sun : Moon} />
             </span>
             <Avatar />
         </div>
