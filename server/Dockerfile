@@ -7,9 +7,9 @@ WORKDIR /app
 # RUN mvn clean package -DskipTests
 # Copy the Maven project file(s) and download dependencies
 COPY pom.xml .
-RUN mvn clean verify --fail-never
 # Copy the application source code and build the JAR
 COPY src src
+RUN mvn clean verify --fail-never
 RUN mvn package -DskipTests
 # mvn spring-boot:build-image
 
