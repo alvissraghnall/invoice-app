@@ -22,7 +22,9 @@ RUN mvn package -DskipTests
 #
 FROM eclipse-temurin:17-jdk-alpine
 WORKDIR /app
-COPY --from=0 /app/target /app/target
-COPY /app/target/*.jar app.jar
+
+# Copy the JAR from the "Build stage"
+COPY --from=BUILD /app/target/*.jar app.jar
+
 ENTRYPOINT ["java","-Dspring.profiles.active=production","-jar","/app.jar"]
 EXPOSE 8080
