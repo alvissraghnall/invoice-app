@@ -35,6 +35,6 @@
 
 
 {#if label}
-  <label class="text-sm mb-1.5 {labelClassNames}" for={name}>{label}</label>
+  <label class="text-sm mb-1.5 text-violet-700 {labelClassNames}" for={name}>{label}</label>
 {/if}
-<input use:typeAction use:validator={value} {name} class={`w-full rounded-xl bg-white text-[#0c0e16] dark:bg-regColor dark:text-white py-3 px-1 border-none focus\:outline-none ${className}`} {id} bind:value={value} />
+<input use:typeAction use:validator={value} {name} class={`w-full rounded-xl bg-violet-700 text-white dark:bg-regColor dark:text-white py-3 px-1 border-none focus\:outline-none ${className}`} {id} bind:value={value} />

@@ -183,7 +183,7 @@
     class="left-0 bg-transparent h-screen overflow-y-scroll ml-0 lg:ml-8 w-full flex flex-col"
 >
     <form
-        class="relative p-14 max-w-[44rem] w-full bg-holderColor text-white shadow-xl"
+        class="relative p-14 max-w-[44rem] w-full dark:bg-holderColor dark:text-white bg-[#eee] text-black shadow-xl"
         on:submit|preventDefault={submitForm}
     >
         <!-- {#if loading} -->
@@ -201,13 +201,13 @@
         </Transition>
         <!-- {/if} -->
 
-        <h1 class="font-semibold text-lg mb-12 text-white">
+        <h1 class="font-semibold text-lg mb-12 text-violet-800 dark:text-white">
             {$editInvoice ? "Edit" : "New"}
             Invoice
         </h1>
 
         <div class="bill-from mb-12 flex flex-col">
-            <h4 class="text-purple-800">Bill From</h4>
+            <h4 class="text-violet-800 font-medium mb-4">Bill From</h4>
 
             <div class="input flex flex-col mb-6">
                 <Input
@@ -256,7 +256,7 @@
 
         <!-- Bill To -->
         <div class="bill-to mb-12 flex-col flex">
-            <h4 class="text-[#7152f0] text-xs mb-6">Bill To</h4>
+            <h4 class="text-violet-800 font-semibold mb-4">Bill To</h4>
 
             <div class="input flex flex-col mb-6">
                 <Input
@@ -365,7 +365,7 @@
             </div>
 
             <div class="input flex flex-col mb-6 flex-1">
-                <label for="paymentTerms">Payment Terms</label>
+                <label for="paymentTerms" class="mb-1.5 text-sm">Payment Terms</label>
                 <Select id="paymentTerms" bind:value={fields.paymentTerms}>
                     <option value={30}>Net 30 Days</option>
                     <option value={60}>Net 60 Days</option>
@@ -385,10 +385,10 @@
             </div>
 
             <div class="items-list">
-                <h3 class="text-[#777f98] text-base mb-4">Item List</h3>
+                <h3 class="dark:text-[#777f98] text-violet-700 text-base mb-4">Item List</h3>
                 <table class="it-list w-full text-base">
                     <thead>
-                        <tr class="t_heading mb-4 gap-4 text-xs flex">
+                        <tr class="mb-4 gap-4 text-xs flex text-violet-700">
                             <th class="text-left basis-2/4">Item Name</th>
                             <th class="text-left basis-1/12">Qty.</th>
                             <th class="text-left basis-1/5">Price</th>
@@ -400,7 +400,7 @@
                     <tbody>
                         {#each fields.invoiceItemList as item, index (item.id)}
                             <tr
-                                class="tb-items relative mb-6 gap-4 text-xs flex"
+                                class="relative mb-6 gap-4 text-xs flex"
                             >
                                 <td class="basis-2/4">
                                     <Input
@@ -424,14 +424,14 @@
                                     />
                                 </td>
                                 <td
-                                    class="flex basis-1/5 self-center mb-5 text-lg"
+                                    class="flex basis-1/5 self-center mb-5 text-lg text-violet-700"
                                 >
                                     $ {(item.total =
                                         item.qty * item.price).toFixed(2)}
                                 </td>
                                 <!-- svelte-ignore a11y-click-events-have-key-events -->
                                 <td
-                                    class="absolute top-2 h-6 w-5 right-0 cursor-pointer"
+                                    class="absolute top-2 h-6 w-5 right-0 cursor-pointer text-violet-700"
                                     on:click={() => deleteInvoiceItem(item.id)}
                                 >
                                     <Icon src={Trash} />
@@ -443,7 +443,7 @@
 
                 <Button
                     type="button"
-                    class="flex button text-white/85 bg-butCol items-center justify-center w-full !py-3 mt-5"
+                    class="flex button text-white/85 dark:bg-butCol bg-violet-700 items-center justify-center w-full !py-3 mt-5"
                     on:click={addNewInvoiceItem}
                 >
                     <span class="w-5 h-5 mr-2.5">
@@ -475,7 +475,7 @@
                     </Button>
                     <Button
                         type="submit"
-                        class="bg-purple-900 capitalize"
+                        class="bg-violet-900 capitalize"
                         on:click={createInvoice}
                     >
                         Create Invoice
