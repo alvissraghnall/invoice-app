@@ -1,7 +1,7 @@
 #
 # Build stage
 #
-FROM maven:3.9.0-eclipse-temurin-17 AS build
+FROM maven:3.9.0-eclipse-temurin-17
 WORKDIR /app
 
 # COPY . .
