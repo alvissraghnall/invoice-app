@@ -35,7 +35,7 @@
     </TransitionChild>
 
     <div
-      class="fixed inset-0 ml-16 max-w-max overflow-y-auto my-auto h-max shadow-xl rounded-2xl"
+      class="fixed inset-0 lg:ml-[4.5rem] max-w-max overflow-y-auto overflow-x-hidden my-auto h-max shadow-xl rounded-2xl"
     >
       <div class="flex min-h-full items-center justify-center">
         <TransitionChild
