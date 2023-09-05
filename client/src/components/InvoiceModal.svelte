@@ -389,10 +389,10 @@
                 <table class="it-list w-full text-base">
                     <thead>
                         <tr class="mb-4 gap-4 text-xs flex text-violet-700">
-                            <th class="text-left basis-2/4">Item Name</th>
-                            <th class="text-left basis-1/12">Qty.</th>
+                            <th class="text-left basis-2/4 max-md:basis-2/5">Item Name</th>
+                            <th class="text-left basis-[10%]">Qty.</th>
                             <th class="text-left basis-1/5">Price</th>
-                            <th class="text-left basis-1/5 self-center"
+                            <th class="text-left basis-1/5 max-md:basis-[30%] self-center"
                                 >Total</th
                             >
                         </tr>
@@ -402,14 +402,14 @@
                             <tr
                                 class="relative mb-6 gap-4 text-xs flex"
                             >
-                                <td class="basis-2/4">
+                                <td class="basis-2/4 max-md:basis-2/5">
                                     <Input
                                         class="mb-6"
                                         type="text"
                                         bind:value={item.itemName}
                                     />
                                 </td>
-                                <td class="basis-1/12">
+                                <td class="basis-[10%]">
                                     <Input
                                         class="mb-6"
                                         type="number"
@@ -424,7 +424,7 @@
                                     />
                                 </td>
                                 <td
-                                    class="flex basis-1/5 self-center mb-5 text-lg text-violet-700"
+                                    class="flex basis-1/5 max-md:basis-[30%] self-center mb-5 text-lg text-violet-700"
                                 >
                                     $ {(item.total =
                                         item.qty * item.price).toFixed(2)}
