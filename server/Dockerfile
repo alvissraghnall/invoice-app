@@ -9,8 +9,8 @@ WORKDIR /app
 COPY pom.xml .
 # Copy the application source code and build the JAR
 COPY src src
-RUN mvn clean verify --fail-never
-RUN mvn package -DskipTests
+RUN mvn clean verify --fail-never -DskipTests
+#RUN mvn package -DskipTests
 # mvn spring-boot:build-image
 
 #
