@@ -22,5 +22,5 @@ WORKDIR /app
 COPY --from=BUILD /app/target/*.jar app.jar
 # Expose port 8080
 EXPOSE 8080
-CMD ["java","-Dspring.profiles.active=production","-jar","/app.jar"]
+ENTRYPOINT ["java","-Dspring.profiles.active=production","-jar","app.jar"]
 
