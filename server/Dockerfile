@@ -20,5 +20,7 @@ FROM eclipse-temurin:17-jdk-alpine
 WORKDIR /app
 # Copy the JAR from the "Build stage"
 COPY --from=BUILD /app/target/*.jar app.jar
-CMD ["java","-Dspring.profiles.active=production","-jar","/app.jar"]
+# Expose port 8080
 EXPOSE 8080
+CMD ["java","-Dspring.profiles.active=production","-jar","/app.jar"]
+
