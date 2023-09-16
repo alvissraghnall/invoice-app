@@ -28,8 +28,8 @@
             <span class="text-base font-medium">
                 Filter
                 <span class="hidden md:inline">
-                    by status<span class="capitalize"
-                        >: {!!currentFilter ? currentFilter : ""}</span
+                    by status: <span class="capitalize"
+                        >{!!currentFilter ? currentFilter : ""}</span
                     ></span
                 >
             </span>
