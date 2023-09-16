@@ -495,7 +495,7 @@
     on:close={() => (errorModalIsOpen = false)}
 >
     <!-- <span slot="description"> Input validation failed! </span> -->
-    <ul slot="content" class="space-x-2 space-y-1 text-xs">
+    <ul slot="content" class="space-x-2 space-y-1 text-xs text-black dark:text-white">
         {#each Object.entries(errors) as [fieldName, error]}
             {#if typeof error === "string"}
                 <li>{error}</li>
