@@ -8,6 +8,7 @@
   import { quintOut } from "svelte/easing";
   import {Toaster} from "svelte-french-toast"
   import { invoices, invoicesLoading } from "./store";
+//  import "./App.css";
   
   const closeInvoiceModal = () => {
     invoiceModalOpen.set(false);
@@ -57,12 +58,13 @@
 </div>
 <Toaster />
 
+
 <style global lang="postcss">
-  @tailwind base;
+@tailwind base;
   @tailwind utilities;
   @tailwind components;
 
-  /* 
+  /*
 * {
   margin: 0;
   padding: 0;
@@ -88,4 +90,6 @@
   .rounded-tbr {
     @apply rounded-br-[1.25rem] rounded-tr-[1.25rem] rounded-tl-none rounded-bl-none;
   }
+
+
 </style>
