@@ -15,7 +15,7 @@ public class HealthzController {
     @GetMapping("/healthz")
     public ResponseEntity<Map<String, String>> healthz() {
         Map<String, String> response = new HashMap<>();
-        response.put("URL", ServletUriComponentsBuilder.fromCurrentContextPath().build().toUriString());
+        response.put("URL", ServletUriComponentsBuilder.fromCurrentContextPath().build().toUriString().split(":")[0]);
         response.put("STATUS", "UP");
         response.put("DETAILS", "Web server is healthy!");
         
