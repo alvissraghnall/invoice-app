@@ -6,12 +6,14 @@
     import { onMount } from "svelte";
     import { InvoiceService } from "../generated";
 
+    $: shownInvoices = $invoices;
+
     const filterInvoices = (ev) => {
         console.log(ev.detail);
         filteredInvoice = ev.detail;
-        invoices.set($invoices.filter(invoice => {
+        shownInvoices = $invoices.filter(invoice => {
             invoice.status.trim().toLowerCase() === filteredInvoice.trim().toLowerCase()
-        }));
+        });
     };
 
     let filteredInvoice = null;
@@ -82,7 +84,7 @@
     {#if $invoices}
         <!-- {#await $invoices then value} -->
 
-        {#each $invoices as invoice, index (invoice.id)}
+        {#each shownInvoices as invoice, index (invoice.id)}
             <Invoice {invoice} />
         {/each}
 
