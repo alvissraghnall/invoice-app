@@ -9,9 +9,9 @@
     const filterInvoices = (ev) => {
         console.log(ev.detail);
         filteredInvoice = ev.detail;
-        $invoices.filter(invoice => {
+        invoices.set($invoices.filter(invoice => {
             invoice.status.trim().toLowerCase() === filteredInvoice.trim().toLowerCase()
-        });
+        }));
     };
 
     let filteredInvoice = null;
