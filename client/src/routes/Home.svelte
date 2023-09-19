@@ -11,8 +11,9 @@
     const filterInvoices = (ev) => {
         console.log(ev.detail);
         filteredInvoice = ev.detail;
-        shownInvoices = $invoices.filter(invoice => {
-            invoice.status.trim().toLowerCase() === filteredInvoice.trim().toLowerCase()
+        shownInvoices = $invoices.filter((invoice) => {
+            return invoice.status.toString().trim().toLowerCase() ===
+                filteredInvoice.trim().toLowerCase();
         });
     };
 
@@ -22,7 +23,7 @@
         invoiceModalOpen.update((value) => !value);
     };
 
-    const filterListItems = ["draft", "paid", "pending"];
+    const filterListItems = ["draft", "completed", "pending"];
 
     onMount(async () => {
         console.log("men mnt");
@@ -61,7 +62,11 @@
             </span>
         </div>
         <div class="flex flex-1 justify-end items-center">
-            <Filter {filterListItems} currentFilter={filteredInvoice} on:filter={filterInvoices} />
+            <Filter
+                {filterListItems}
+                currentFilter={filteredInvoice}
+                on:filter={filterInvoices}
+            />
             <button
                 class="cursor-pointer py-2 px-2.5 bg-violet-600 rounded-[2rem] text-xs mr-2 text-white outline-none flex items-center"
                 on:click={toggleInvoiceModal}
