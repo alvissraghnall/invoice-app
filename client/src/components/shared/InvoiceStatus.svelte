@@ -3,7 +3,7 @@
 </script>
 
 <div class={
-    'flex text-xs items-center py-4 px-9 max-md:px-7 rounded-xl before:w-2.5 before:h-2.5 before:rounded-full before:mr-[0.37rem] '
+    'flex text-xs items-center py-4 px-[1.9rem] max-md:px-7 max-sm:px-4 rounded-xl before:w-2.5 before:h-2.5 before:rounded-full before:mr-[0.37rem] justify-center w-[9rem] max-sm:w-[8rem]'
     .concat(
         (status === 'COMPLETED' && 'bg-green-100 dark:bg-green-800/40 text-green-500 before:bg-green-500')
     || (status === 'DRAFT' && 'bg-neutral-100 dark:bg-[rgba(223,227,250,0.1)] text-[rgb(55,59,83)] dark:text-[rgb(223,227,250)] before:bg-[rgb(223,227,250)]')

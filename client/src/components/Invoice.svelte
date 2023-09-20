@@ -11,7 +11,9 @@
 
     export let invoice;
 
-    const totalAmount = 0;
+    const totalAmount = invoice?.invoiceItemList?.reduce(
+        (acc, curr) => acc += (curr.qty * curr.price), 0
+    ) ?? 0;
 </script>
 
 <div>
